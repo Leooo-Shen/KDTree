@@ -3,7 +3,7 @@
 #include<string>
 #include<vector>
 
-#define K 2
+#define K 3
 
 
 // reload << to better output vectors
@@ -42,6 +42,7 @@ Node* newNode(std::vector<double> in_arr)
 // The parameter depth is used to decide axis of comparison
 Node* insert(Node *root, std::vector<double> point, unsigned int depth=0)
 {
+    // std::cout << "incoming new point: " << point << std::endl;
 	// Tree is empty?
 	if (root == NULL)
     {
@@ -104,10 +105,11 @@ int main()
 {
 	struct Node *root = NULL;
     Utilities utils;
-	std::vector<std::vector<double>> points_Arr = {{3, 6}, {17, 15}, {13, 15}, {6, 12},
-					{9, 1}, {2, 7}, {10, 19}};
+	// std::vector<std::vector<double>> points_Arr = {{3, 6}, {17, 15}, {13, 15}, {6, 12},
+	// 				{9, 1}, {2, 7}, {10, 19}};
 
-    
+    std::vector<std::vector<double>> points_Arr = {{3, 6,1}, {17, 15,1}, {13, 15,1}, {6, 12,1}};
+
     auto n = points_Arr.size();
 
 	for (int i=0; i<n; i++)
@@ -115,11 +117,12 @@ int main()
         root = insert(root, points_Arr[i]);
     }
 
-	std::vector<double> point1 = {10, 19};
+	std::vector<double> point1 = {3, 6,1};
 	(utils.search(root, point1))? std::cout << "Found\n": std::cout << "Not Found\n";
 
-	std::vector<double> point2 = {12, 19};
+	std::vector<double> point2 = {12, 19, 2};
 	(utils.search(root, point2))? std::cout << "Found\n": std::cout << "Not Found\n";
-
+    
+    delete root;
 	return 0;
 }

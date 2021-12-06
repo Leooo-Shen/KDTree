@@ -18,7 +18,6 @@ std::ostream& operator<<(std::ostream& os, std::vector<double> vec)
 }
 
 
-
 // Each node in a KD-tree has: current node data, pointer to the left node, poiter to the right node
 struct Node
 {
@@ -31,11 +30,11 @@ struct Node
 // create a new node 
 Node* newNode(std::vector<double> in_arr)
 {
-	struct Node* temp = new Node;
-    temp->point = in_arr;
-	temp->left = temp->right = NULL;
+	struct Node* new_node = new Node;
+    new_node->point = in_arr;
+	new_node->left = new_node->right = NULL;
     // std::cout << "in newNode: " << temp->point << std::endl;
-	return temp;
+	return new_node;
 }
 
 // Inserts a new node and returns root of modified tree

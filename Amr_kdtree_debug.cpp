@@ -26,9 +26,10 @@ std::vector<std::vector<double>> generate_numbers(int n)
             generated_int[i][j] = (rand() % 100);
         }
     }
+    return generated_int;
 }
 
-void print_array(std::vector<std::vector<int>> generate_numbers)
+void print_array(std::vector<std::vector<double>> generate_numbers)
 {
     for (auto vectors : generate_numbers)
     {
@@ -189,21 +190,15 @@ int main()
     // print_array(value_vectors);
 
     Utilities utils;
-    // std::vector<std::vector<double>> value_vectors = {{3, 6,1}, {17, 15,1}, {13, 15,1}, {6, 12,1}};
-
-    
     for (auto &elem : value_vectors)
     {
         root = insert(elem, root);
     }
 
-    std::vector<double> point1 = {3, 6,1};
+    std::vector<double> point1 = value_vectors[0];
 	(utils.search(root, point1))? std::cout << "Found\n": std::cout << "Not Found\n";
 
-	std::vector<double> point2 = {12, 19, 2};
-	(utils.search(root, point2))? std::cout << "Found\n": std::cout << "Not Found\n";
-
-
+    delete root;
 
 
 

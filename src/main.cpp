@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include<fstream>
-#include "my_kd_tree.h"
+#include "my_kd_tree.cpp"
 
 
 std::string filepath = "../data/generated_values.csv";
@@ -22,7 +22,7 @@ int main()
     // read data as vector of vectors from csv file
     // auto value_vectors = read_from_csv(filepath);
 
-    std::vector<std::vector<double>> value_vectors {{7,2}, {5,4}, {2,3}, {4,7}, {9,6}, {8,1}};
+    std::vector<std::vector<double>> value_vectors =generate_numbers(100);
 
     // print vectors
     // print_vec(value_vectors);
@@ -32,7 +32,7 @@ int main()
     {
         root = insert(elem, root);
     }
-    print_kd_tree(root);
+    print_kd_tree("",root,false);
 
     // Node *new_root = delete_node(value_vectors, value_vectors[0]);
     // print_kd_tree(new_root);

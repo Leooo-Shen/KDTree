@@ -16,6 +16,13 @@ std::ostream& operator<<(std::ostream& os, std::vector<double> vec)
     return os;
 }
 
+std::vector<std::vector<int>> delete_node(std::vector<std::vector<int>> array, std::vector<int> point_to_delete)
+{
+    for(auto vector:array){
+        
+    }
+} 
+
 std::vector<std::vector<double>> generate_numbers(int n)
 {
     std::vector<std::vector<double>> generated_int(n, std::vector<double>(k, 0));

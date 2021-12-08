@@ -11,7 +11,7 @@ std::ostream &operator<<(std::ostream &os, std::vector<double> vec);
 
 std::vector<std::vector<double>> generate_numbers(int n);
 
-void print_array(std::vector<std::vector<double>> generate_numbers);
+void print_vec(std::vector<std::vector<double>> value_vectors);
 
 Node *insert(std::vector<double> &x, Node *parent, unsigned cd = 0);
 

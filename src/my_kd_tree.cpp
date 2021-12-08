@@ -9,6 +9,7 @@
 
 extern const int k{2};
 
+// A node in the tree has 3 main elements: the data it carries, a pointer to its left node, a pointer to its right node
 struct Node
 {
     std::vector<double> point;
@@ -21,8 +22,11 @@ struct Node
     }
 };
 
+
+// Reload the << to ouput vectors more conviently
 std::ostream &operator<<(std::ostream &os, std::vector<double> vec)
 {
+    
     for (const auto &elem : vec)
     {
         os << elem << " ";
@@ -31,8 +35,18 @@ std::ostream &operator<<(std::ostream &os, std::vector<double> vec)
     return os;
 }
 
+
 std::vector<std::vector<double>> generate_numbers(int n)
 {
+    /*
+    Generate fake data of k-dimensions;
+    param:
+        inputs: 
+            n: total numbers of vectors want to generate (int)
+        returns:
+            generated_int: a general vector of generated value vectors (std::vector<std::vector<double>>)
+
+    */
     std::vector<std::vector<double>> generated_int(n, std::vector<double>(k, 0));
     for (int i = 0; i < n; i++)
     {
@@ -44,9 +58,10 @@ std::vector<std::vector<double>> generate_numbers(int n)
     return generated_int;
 }
 
-void print_array(std::vector<std::vector<double>> generate_numbers)
+// print the vector of vectors
+void print_vec(std::vector<std::vector<double>> value_vectors)
 {
-    for (auto vectors : generate_numbers)
+    for (auto vectors : value_vectors)
     {
         for (auto element : vectors)
         {
@@ -55,12 +70,12 @@ void print_array(std::vector<std::vector<double>> generate_numbers)
         std::cout << "\n";
     }
     std::cout << "------------------------------" << std::endl;
-    std::cout << "Total number of points: " << generate_numbers.size() << std::endl;
+    std::cout << "Total number of points: " << value_vectors.size() << std::endl;
 }
 
+// recursively insert node to construct the kd-tree
 Node *insert(std::vector<double> &x, Node *parent, unsigned cd)
-{
-
+{   
     if (parent == NULL)
     {
         Node *parent = new Node(x);
@@ -81,19 +96,24 @@ Node *insert(std::vector<double> &x, Node *parent, unsigned cd)
     return parent;
 }
 
-bool arePointsSame(std::vector<double> point1, std::vector<double> point2)
+
 // determine if two Points are same
+bool arePointsSame(std::vector<double> point1, std::vector<double> point2)
 {
     for (int i = 0; i < k; ++i)
-        if (point1[i] != point2[i])
+    {
+         if (point1[i] != point2[i])
+         {
             return false;
-
+         }   
+    }
     return true;
 }
 
+
+// search if the node exists in the tree
 bool search(Node *root, std::vector<double> search_point, unsigned depth)
 {
-    // search if the point exists in the KD-tree
     if (root == NULL)
     {
         // std::cout << "No tree available!" << std::endl;
@@ -105,35 +125,43 @@ bool search(Node *root, std::vector<double> search_point, unsigned depth)
         return true;
     }
 
-    // Current dimension is computed using current depth and total
-    // dimensions (k)
+    // get current dimension
     unsigned cd = depth % k;
 
-    // Compare point with root with respect to cd (Current dimension)
+    // compare point with root on current dimension
+    // if search_point[cd] smaller than current_node[cd], then go left and keep searching
     if (search_point[cd] < root->point[cd])
+    {
         return search(root->left, search_point, depth + 1);
-
+    }
+    // if search_point[cd] bigger than current_node[cd], then go right and keep searching
     return search(root->right, search_point, depth + 1);
 }
 
 
+// visualize the kd-tree
 void print_kd_tree(Node *tree, unsigned depth)
 {
-    for (std::vector<double>::size_type j = 0; j < tree->point.size(); ++j)
+    for (auto j = 0; j < tree->point.size(); ++j)
+    {
+        // std::cout << "size_type: " << j << std::endl;
         std::cout << tree->point[j] << ",";
+    }
     std::cout << std::endl;
 
     // if current node if the leaf, end print
     if (tree->left == NULL && tree->right == NULL)
-        return;
+        {return;}
 
-    // if current node not the leaf
+    // if current node is not the leaf
     else
     {
         if (tree->left != NULL)
         {
-            for (unsigned i = 0; i < depth + 1; ++i)
-                std::cout << "\t";
+            for (auto i = 0; i < depth + 1; ++i)
+                {
+                    std::cout << "\t";
+                }
             std::cout << " left:";
             print_kd_tree(tree->left, depth + 1);
         }
@@ -141,14 +169,17 @@ void print_kd_tree(Node *tree, unsigned depth)
         std::cout << std::endl;
         if (tree->right != NULL)
         {
-            for (unsigned i = 0; i < depth + 1; ++i)
+            for (auto i = 0; i < depth + 1; ++i)
+            {
                 std::cout << "\t";
+            }
             std::cout << "right:";
             print_kd_tree(tree->right, depth + 1);
         }
         std::cout << std::endl;
     }
 }
+
 
 void write_to_csv(std::vector<std::vector<double>> &generated_numbers,
                   std::string filename)
@@ -165,6 +196,7 @@ void write_to_csv(std::vector<std::vector<double>> &generated_numbers,
     }
     csv_file.close();
 }
+
 
 std::vector<std::vector<double>> read_from_csv(std::string filename)
 {
@@ -193,7 +225,6 @@ std::vector<std::vector<double>> read_from_csv(std::string filename)
         value_vectors.push_back(point);
         point.clear();
     }
-
     database.close();
     return value_vectors;
 }

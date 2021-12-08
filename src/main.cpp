@@ -25,7 +25,7 @@ int main()
     std::vector<std::vector<double>> value_vectors {{7,2}, {5,4}, {2,3}, {4,7}, {9,6}, {8,1}};
 
     // print vectors
-    print_array(value_vectors);
+    // print_vec(value_vectors);
 
     // construct the tree
     for (auto &elem : value_vectors)
@@ -34,8 +34,8 @@ int main()
     }
     print_kd_tree(root);
 
-    Node *new_root = delete_node(value_vectors, value_vectors[0]);
-    print_kd_tree(new_root);
+    // Node *new_root = delete_node(value_vectors, value_vectors[0]);
+    // print_kd_tree(new_root);
 
     // // test functions
     // std::vector<double> point1 = value_vectors[0];

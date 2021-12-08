@@ -19,7 +19,9 @@ bool arePointsSame(std::vector<double> point1, std::vector<double> point2);
 
 bool search(Node *root, std::vector<double> search_point, unsigned depth = 0);
 
-void print_kd_tree(Node *tree, unsigned depth=0);
+void print_vector(std::vector<double> Vector);
+
+void print_kd_tree(const std::string& prefix, const Node* node, bool isLeft);
 
 void write_to_csv (std::vector<std::vector<double>>& generated_numbers,
                    std::string filename = "../data/generated_values.csv");

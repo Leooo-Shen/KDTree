@@ -7,7 +7,7 @@
 
 #include "my_kd_tree.h"
 
-extern const int k{3};
+extern const int k{2};
 
 struct Node
 {
@@ -91,7 +91,7 @@ bool arePointsSame(std::vector<double> point1, std::vector<double> point2)
     return true;
 }
 
-bool search(Node *root, std::vector<double> point, unsigned depth)
+bool search(Node *root, std::vector<double> search_point, unsigned depth)
 {
     // search if the point exists in the KD-tree
     if (root == NULL)
@@ -99,9 +99,9 @@ bool search(Node *root, std::vector<double> point, unsigned depth)
         // std::cout << "No tree available!" << std::endl;
         return false;
     }
-    if (arePointsSame(root->point, point))
+    if (arePointsSame(root->point, search_point))
     {
-        std::cout << root->point << std::endl;
+        // std::cout << "Found point: " << root->point << std::endl;
         return true;
     }
 
@@ -110,107 +110,15 @@ bool search(Node *root, std::vector<double> point, unsigned depth)
     unsigned cd = depth % k;
 
     // Compare point with root with respect to cd (Current dimension)
-    if (point[cd] < root->point[cd])
-        return search(root->left, point, depth + 1);
+    if (search_point[cd] < root->point[cd])
+        return search(root->left, search_point, depth + 1);
 
-    return search(root->right, point, depth + 1);
+    return search(root->right, search_point, depth + 1);
 }
 
-// // A utility function to find minimum of three integers
-// Node *minNode(Node *x, Node *y, Node *z, unsigned comparing_d)
-// {
-//     Node *res = x;
-//     if (y != NULL && y->point[comparing_d] < res->point[comparing_d])
-//         res = y;
-//     if (z != NULL && z->point[comparing_d] < res->point[comparing_d])
-//         res = z;
-//     return res;
-// }
-
-// Node *findMin(Node *root, unsigned int comparing_d, unsigned depth)
-// {
-//     // Base cases
-//     if (root == NULL)
-//     {
-//         // std::cout << "Tree is empty, cannot find min!" << std::endl;
-//         return NULL;
-//     }
-
-//     // Current dimension
-//     unsigned current_d = depth % k;
-
-//     // Compare point with root with respect to cd (Current dimension)
-//     if (current_d == comparing_d)
-//     {
-//         if (root->left == NULL)
-//         {
-//             return root;
-//         }
-//         else
-//         {
-//             return findMin(root->left, comparing_d, depth + 1);
-//         }
-//     }
-
-//     // If current dimension is different then minimum can be anywhere
-//     // in this subtree
-//     return minNode(root,
-//                    findMin(root->left, comparing_d, depth + 1),
-//                    findMin(root->right, comparing_d, depth + 1), comparing_d);
-// }
-
-// // Function to delete a given point from K D Tree with 'root'
-// Node *deleteNode(Node *root, std::vector<double> point, unsigned depth)
-// {
-//     // Given point is not present
-//     if (root == NULL)
-//         return NULL;
-
-//     // Find dimension of current node
-//     unsigned int cd = depth % k;
-
-//     // If the point to be deleted is present at root
-//     if (arePointsSame(root->point, point))
-//     {
-//         // 2.b) If right child is not NULL
-//         if (root->right != NULL)
-//         {
-//             // Find minimum of root's dimension in right subtree
-//             Node *min = findMin(root->right, cd);
-
-//             // Copy the minimum to root
-//             root->point = min->point;
-
-//             // Recursively delete the minimum
-//             root->right = deleteNode(root->right, min->point, depth + 1);
-//         }
-//         else if (root->left != NULL) // same as above
-//         {
-//             Node *min = findMin(root->left, cd);
-//             root->point = min->point;
-//             root->right = deleteNode(root->left, min->point, depth + 1);
-//         }
-//         else // If node to be deleted is leaf node
-//         {
-//             delete root;
-//             return NULL;
-//         }
-//         return root;
-//     }
-
-//     // 2) If current node doesn't contain point, search downward
-//     if (point[cd] < root->point[cd])
-//         root->left = deleteNode(root->left, point, depth + 1);
-//     else
-//         root->right = deleteNode(root->right, point, depth + 1);
-//     return root;
-// }
 
 void print_kd_tree(Node *tree, unsigned depth)
 {
-    for (unsigned i = 0; i < depth; ++i)
-        std::cout << "\t";
-
     for (std::vector<double>::size_type j = 0; j < tree->point.size(); ++j)
         std::cout << tree->point[j] << ",";
     std::cout << std::endl;
@@ -288,4 +196,18 @@ std::vector<std::vector<double>> read_from_csv(std::string filename)
 
     database.close();
     return value_vectors;
+}
+
+
+Node *delete_node(std::vector<std::vector<double>> &value_vecs, std::vector<double> point_to_delete)
+{
+    // we delete the point from the vector of vectors, then reconstruct the tree
+    value_vecs.erase(std::remove(value_vecs.begin(), value_vecs.end(), point_to_delete), value_vecs.end());
+
+    Node *new_root = NULL;
+    for (auto &elem : value_vecs)
+    {
+        new_root = insert(elem, new_root);
+    }
+    return new_root;
 }

@@ -96,7 +96,7 @@ bool search(Node *root, std::vector<double> point, unsigned depth)
     // search if the point exists in the KD-tree
     if (root == NULL)
     {
-        std::cout << "No tree available!" << std::endl;
+        // std::cout << "No tree available!" << std::endl;
         return false;
     }
     if (arePointsSame(root->point, point))

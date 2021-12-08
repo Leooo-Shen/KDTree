@@ -5,14 +5,12 @@
 //Cool printing function to print AFTER FORMING TREE :) !!
 const int k{3};
 struct Node{
-    std::vector<int> point{0,0,0};
+    std::vector<int> point;
     Node * left=NULL;
     Node * right=NULL;
     Node(std::vector<int> Tpoint){
-        // point=Tpoint;
-        for(int i=0;i<k;i++){
-            point[i]=Tpoint[i];    
-        }
+         point=Tpoint;
+        
         left=right=NULL;
     }
 };

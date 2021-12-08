@@ -10,11 +10,11 @@ struct Node
 {
 	int point[k]; // To store k dimensional point
 	Node *left;
-    Node *right;
+    Node *right; //every node has left, right pointer and k dimensions
 };
 
 // A method to create a node of K D tree
-struct Node* newNode(int arr[])
+struct Node* newNode(int arr[]) 
 {
 	struct Node* temp = new Node;
 

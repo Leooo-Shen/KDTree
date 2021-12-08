@@ -140,47 +140,33 @@ bool search(Node *root, std::vector<double> search_point, unsigned depth)
 
 
 // visualize the kd-tree
-void print_kd_tree(Node *tree, unsigned depth)
-{
-    for (auto j = 0; j < tree->point.size(); ++j)
-    {
-        // std::cout << "size_type: " << j << std::endl;
-        std::cout << tree->point[j] << ",";
+void print_vector(std::vector<double> Vector){
+    std::cout<<"[";
+    std::string messy{""};
+    for(auto elements: Vector){
+            messy=messy+std::to_string(elements)+",";
     }
-    std::cout << std::endl;
-
-    // if current node if the leaf, end print
-    if (tree->left == NULL && tree->right == NULL)
-        {return;}
-
-    // if current node is not the leaf
-    else
-    {
-        if (tree->left != NULL)
-        {
-            for (auto i = 0; i < depth + 1; ++i)
-                {
-                    std::cout << "\t";
-                }
-            std::cout << " left:";
-            print_kd_tree(tree->left, depth + 1);
-        }
-
-        std::cout << std::endl;
-        if (tree->right != NULL)
-        {
-            for (auto i = 0; i < depth + 1; ++i)
-            {
-                std::cout << "\t";
-            }
-            std::cout << "right:";
-            print_kd_tree(tree->right, depth + 1);
-        }
-        std::cout << std::endl;
-    }
+    messy.pop_back();
+    std::cout<<messy;
+    std::cout<<"]";
+    std::cout<<std::endl;
 }
 
+void print_kd_tree(const std::string& prefix, const Node* node, bool isLeft)
+{
+    if( node != NULL )
+    {
+        std::cout << prefix;
 
+        std::cout << (isLeft ? "├──" : "└──" );
+
+        // print the value of the node
+        print_vector(node->point);
+        // enter the next tree level - left and right branch
+        print_kd_tree( prefix + (isLeft ? "│   " : "    "), node->left, true);
+        print_kd_tree( prefix + (isLeft ? "│   " : "    "), node->right, false);
+    }
+}
 void write_to_csv(std::vector<std::vector<double>> &generated_numbers,
                   std::string filename)
 {

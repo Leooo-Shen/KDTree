@@ -7,7 +7,7 @@
 
 #include "my_kd_tree.h"
 
-extern const int k{2};
+extern const int k{3};
 
 // A node in the tree has 3 main elements: the data it carries, a pointer to its left node, a pointer to its right node
 struct Node
@@ -47,30 +47,16 @@ std::vector<std::vector<double>> generate_numbers(int n)
             generated_int: a general vector of generated value vectors (std::vector<std::vector<double>>)
 
     */
-    std::vector<std::vector<double>> generated_int(n, std::vector<double>(k, 0));
+    srand(time(0));
+    std::vector<std::vector<double>> generated_values(n, std::vector<double>(k, 0));
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < k; j++)
         {
-            generated_int[i][j] = (rand() % 100);
+            generated_values[i][j] = (double)rand()/RAND_MAX*300-150;
         }
     }
-    return generated_int;
-}
-
-// print the vector of vectors
-void print_vec(std::vector<std::vector<double>> value_vectors)
-{
-    for (auto vectors : value_vectors)
-    {
-        for (auto element : vectors)
-        {
-            std::cout << element << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "------------------------------" << std::endl;
-    std::cout << "Total number of points: " << value_vectors.size() << std::endl;
+    return generated_values;
 }
 
 // recursively insert node to construct the kd-tree
@@ -95,7 +81,6 @@ Node *insert(std::vector<double> &x, Node *parent, unsigned cd)
     }
     return parent;
 }
-
 
 // determine if two Points are same
 bool arePointsSame(std::vector<double> point1, std::vector<double> point2)
@@ -167,6 +152,7 @@ void print_kd_tree(const std::string& prefix, const Node* node, bool isLeft)
         print_kd_tree( prefix + (isLeft ? "│   " : "    "), node->right, false);
     }
 }
+
 void write_to_csv(std::vector<std::vector<double>> &generated_numbers,
                   std::string filename)
 {

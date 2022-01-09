@@ -6,12 +6,8 @@
 
 #IncludeRegexTransform: 
 
-/home/leo/Desktop/ap_kdtree/src/main.cpp
+/home/leo/Desktop/ap_kdtree/src/my_kd_tree.cpp
 iostream
--
-iterator
--
-algorithm
 -
 string
 -
@@ -19,8 +15,14 @@ vector
 -
 fstream
 -
+sstream
+-
+algorithm
+-
 my_kd_tree.h
 /home/leo/Desktop/ap_kdtree/src/my_kd_tree.h
+node.h
+/home/leo/Desktop/ap_kdtree/src/node.h
 
 /home/leo/Desktop/ap_kdtree/src/my_kd_tree.h
 iostream
@@ -30,5 +32,11 @@ string
 vector
 -
 fstream
+-
+node.h
+/home/leo/Desktop/ap_kdtree/src/node.h
+
+/home/leo/Desktop/ap_kdtree/src/node.h
+vector
 -
 

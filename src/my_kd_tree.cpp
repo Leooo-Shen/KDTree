@@ -6,21 +6,9 @@
 #include <algorithm>
 
 #include "my_kd_tree.h"
+#include "node.h"
 
 extern const int k{3};
-
-// A node in the tree has 3 main elements: the data it carries, a pointer to its left node, a pointer to its right node
-struct Node
-{
-    std::vector<double> point;
-    Node *left;
-    Node *right;
-    Node(std::vector<double> &Tpoint)
-    {
-        point = Tpoint;
-        left = right = NULL;
-    }
-};
 
 
 // Reload the << to ouput vectors more conviently
@@ -64,7 +52,10 @@ Node *insert(std::vector<double> &x, Node *parent, unsigned cd)
 {   
     if (parent == NULL)
     {
-        Node *parent = new Node(x);
+        //TODO: handle memeory leakage
+        Node* parent = new Node(x);
+        // unique_ptr<Node> parent = (x);
+
         // std::cout << "successfully created root: " << parent->point << std::endl;
         return parent;
     }
@@ -82,19 +73,6 @@ Node *insert(std::vector<double> &x, Node *parent, unsigned cd)
     return parent;
 }
 
-// determine if two Points are same
-bool arePointsSame(std::vector<double> point1, std::vector<double> point2)
-{
-    for (int i = 0; i < k; ++i)
-    {
-         if (point1[i] != point2[i])
-         {
-            return false;
-         }   
-    }
-    return true;
-}
-
 
 // search if the node exists in the tree
 bool search(Node *root, std::vector<double> search_point, unsigned depth)
@@ -104,7 +82,7 @@ bool search(Node *root, std::vector<double> search_point, unsigned depth)
         // std::cout << "No tree available!" << std::endl;
         return false;
     }
-    if (arePointsSame(root->point, search_point))
+    if (root->point == search_point)
     {
         // std::cout << "Found point: " << root->point << std::endl;
         return true;
@@ -125,7 +103,7 @@ bool search(Node *root, std::vector<double> search_point, unsigned depth)
 
 
 // visualize the kd-tree
-void print_vector(std::vector<double> Vector){
+void print_vector(const std::vector<double>& Vector){
     std::cout<<"[";
     std::string messy{""};
     for(auto elements: Vector){
@@ -153,8 +131,8 @@ void print_kd_tree(const std::string& prefix, const Node* node, bool isLeft)
     }
 }
 
-void write_to_csv(std::vector<std::vector<double>> &generated_numbers,
-                  std::string filename)
+void write_to_csv(const std::vector<std::vector<double>> &generated_numbers,
+                  const std::string& filename)
 {
     // open file stream for output
     std::ofstream csv_file(filename);
@@ -170,24 +148,26 @@ void write_to_csv(std::vector<std::vector<double>> &generated_numbers,
 }
 
 
-std::vector<std::vector<double>> read_from_csv(std::string filename)
+std::vector<std::vector<double>> read_from_csv(const std::string& filename)
 {
-    std::ifstream database(filename);
+    std::ifstream ifs(filename);
     std::vector<std::vector<double>> value_vectors;
     std::vector<double> point;
     double single_value;
+    std::cout << "opening the file: " << filename << std::endl;
 
-    if (!database.is_open())
+
+    if (!ifs.is_open())
     {
-        std::cout << "Cannot open the file." << std::endl;
+        throw -1;
     }
 
     std::string line;
     // throw away first line: contains csv header
-    std::getline(database, line);
+    std::getline(ifs, line);
 
     // while lines in csv
-    while (std::getline(database, line))
+    while (std::getline(ifs, line))
     {
         std::stringstream line_stream(line);
         while (line_stream >> single_value)
@@ -197,7 +177,7 @@ std::vector<std::vector<double>> read_from_csv(std::string filename)
         value_vectors.push_back(point);
         point.clear();
     }
-    database.close();
+    ifs.close();
     return value_vectors;
 }
 

@@ -28,4 +28,6 @@ std::vector<std::vector<double>> read_from_csv (const std::string& filename);
 
 Node * delete_node(std::vector<std::vector<double>> &origin_vecs, std::vector<double> point_to_delete);
 
+double findMin(Node* root, int d, unsigned depth=0);
+
 #endif

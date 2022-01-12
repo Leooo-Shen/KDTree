@@ -3,7 +3,9 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-#include<fstream>
+#include <fstream>
+#include <typeinfo>
+
 #include "my_kd_tree.h"
 
 
@@ -29,7 +31,13 @@ int main()
         {
             root = insert(elem, root);
         }
-        print_kd_tree("",root,false);
+        // std::cout << typeid(root).name() << std::endl;
+        // if (root != NULL) {std::cout << "not empty root" << std::endl;}
+
+        // print_kd_tree("",root,false);
+
+        std::cout << findMin(root, 0) << std::endl;
+        std::cout << findMin(root, 1) << std::endl;
 
         // Node *new_root = delete_node(value_vectors, value_vectors[0]);
         // print_kd_tree("",new_root,false);

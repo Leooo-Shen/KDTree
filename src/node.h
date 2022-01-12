@@ -5,7 +5,6 @@
 
 // A node in the tree has 3 main elements: 
 // the data it carries, a pointer to its left node, a pointer to its right node
-
 struct Node
 {
     std::vector<double> point;

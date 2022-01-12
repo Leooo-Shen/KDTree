@@ -101,7 +101,6 @@ bool search(Node *root, std::vector<double> search_point, unsigned depth)
     return search(root->right, search_point, depth + 1);
 }
 
-
 // visualize the kd-tree
 void print_vector(const std::vector<double>& Vector){
     std::cout<<"[";
@@ -194,3 +193,55 @@ Node *delete_node(std::vector<std::vector<double>> &value_vecs, std::vector<doub
     }
     return new_root;
 }
+
+
+// double min_of_three(double x, double y, double z)
+// {
+//     return std::min(x, std::min(y, z));
+// }
+
+
+// given the constructed tree, find the min node in corresponding dimension
+double findMin(Node* root, int desired_dim, unsigned depth)
+{
+    //  Base cases
+    if (root == NULL)
+    {
+        // std::cout << "Empty tree!" << std::endl;
+        return -1;
+    }
+        
+  
+    // Current dimension is computed using current depth and total
+    // dimensions (k)
+    unsigned cd = depth % k;
+  
+    // Compare point with root with respect to cd (Current dimension)
+    if (cd == desired_dim) 
+    {
+        if (root->left == NULL)
+        {
+            // print_vector(root->point);
+            return root->point[desired_dim];
+        }
+        return std::min(root->point[desired_dim], findMin(root->left, desired_dim, depth + 1));
+    }
+    
+  
+    // If current dimension is different then minimum can be anywhere
+    // in this subtree
+    else
+    {
+        return std::min(root->point[desired_dim], 
+                std::min(findMin(root->left, desired_dim, depth + 1),
+                    findMin(root->right, desired_dim, depth + 1)));
+    }
+
+}
+  
+// // A wrapper over findMinRec(). Returns minimum of d'th dimension
+// double findMin(Node* root, int d)
+// {
+//     // Pass current level or depth as 0
+//     return findMinRec(root, d, 0);
+// }

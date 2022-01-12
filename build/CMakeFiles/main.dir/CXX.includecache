@@ -6,6 +6,24 @@
 
 #IncludeRegexTransform: 
 
+/home/leo/Desktop/ap_kdtree/src/main.cpp
+iostream
+-
+iterator
+-
+algorithm
+-
+string
+-
+vector
+-
+fstream
+-
+typeinfo
+-
+my_kd_tree.h
+/home/leo/Desktop/ap_kdtree/src/my_kd_tree.h
+
 /home/leo/Desktop/ap_kdtree/src/my_kd_tree.cpp
 iostream
 -

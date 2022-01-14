@@ -8,22 +8,33 @@
 struct Node
 {
     std::vector<double> point;
-    Node *left;
-    Node *right;
+    Node* left;
+    Node* right;
+    Node* parent;
     Node(std::vector<double> &Tpoint)
     {
         point = Tpoint;
         left = right = nullptr;
     }
 
-    bool isEmpty()
+    bool isRoot()
     {
-        return point.empty();
+        return {(!point.empty() && parent == nullptr)};
     }
-    
+
     bool isLeaf()
     {
-        return (!point.empty()) && left == nullptr && right == nullptr;
+        return {(!point.empty()) && left == nullptr && right == nullptr};
+    }
+
+    bool isLeftChild()
+    {
+        return {parent->left->point == point};
+    }
+
+    bool isRightChild()
+    {
+        return {parent->right->point == point};
     }
 };
 

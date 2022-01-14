@@ -49,36 +49,37 @@ std::vector<std::vector<double>> generate_numbers(int n)
 }
 
 // recursively insert node to construct the kd-tree
-Node *insert(std::vector<double> &x, Node *parent, unsigned cd)
+Node *insert(std::vector<double> &x, Node* tree, unsigned cd)
 {   
-    if (parent == NULL)
+    if (tree == nullptr)
     {
         //TODO: handle memeory leakage
-        Node* parent = new Node(x);
-        // unique_ptr<Node> parent = (x);
+        Node* tree = new Node(x);
+        // unique_ptr<Node> tree = (x);
+        tree->parent = tree;
 
-        // std::cout << "successfully created root: " << parent->point << std::endl;
-        return parent;
+        // std::cout << "successfully created root: " << tree->point << std::endl;
+        return tree;
     }
-    else if (x == parent->point)
+    else if (x == tree->point)
     { // error! duplicate
     }
-    else if (x[cd] < parent->point[cd])
+    else if (x[cd] < tree->point[cd])
     {
-        parent->left = insert(x, parent->left, (cd + 1) % k);
+        tree->left = insert(x, tree->left, (cd + 1) % k);
     }
     else
     {
-        parent->right = insert(x, parent->right, (cd + 1) % k);
+        tree->right = insert(x, tree->right, (cd + 1) % k);
     }
-    return parent;
+    return tree;
 }
 
 
 // search if the node exists in the tree
 bool search(Node *root, std::vector<double> search_point, unsigned depth)
 {
-    if (root == NULL)
+    if (root == nullptr)
     {
         // std::cout << "No tree available!" << std::endl;
         return false;
@@ -215,7 +216,7 @@ double findMin(Node* root, int desired_dim, unsigned depth)
     //      if current node still has left leaf --> go left and recursively search for the min. Then compare the found min with current node.
     if (cd == desired_dim) 
     {
-        if (root->left == NULL)
+        if (root->left == nullptr)
         {
             // print_vector(root->point);
             return root->point[desired_dim];
@@ -233,16 +234,5 @@ double findMin(Node* root, int desired_dim, unsigned depth)
                     findMin(root->right, desired_dim, depth + 1)));
     }
 
-}
-
-
-double distance(std::vector<double> a, std::vector<double> b)
-{
-    double dist = 0;
-    for (unsigned i=0; i < a.size(); i++)
-    {
-        dist += pow((a[i] - b[i]),2);
-    }
-    return sqrt(dist);
 }
 

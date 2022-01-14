@@ -1,7 +1,11 @@
-#include <stack>
-#include "my_kd_tree.h"
+
+#include <iostream>
 #include <math.h>
 #include <string>
+#include "my_kd_tree.h"
+#include "node.h"
+#include "utils.h"
+
 
 double distance(std::vector<double> a, std::vector<double> b)
 {
@@ -16,7 +20,7 @@ double distance(std::vector<double> a, std::vector<double> b)
 
 // input:constructed tree, target point
 // return: nearest neighbor of target
-std::vector<double> searchNN(Node *root, std::vector<double> target)
+std::vector<double> searchNN(Node* root, std::vector<double> target)
 {
 
     /*
@@ -32,10 +36,11 @@ std::vector<double> searchNN(Node *root, std::vector<double> target)
         Climb back from the leaf node and search for potential NN:
         - computer current_dist = dist(target, current_NN)
         - check another side of the parent node for potential NN (e.g if current is parent's left/right node, check parent's right/left node)
-          We can 
-    
+            We can 
+
     */
 
+   KdTree kdtree;
     unsigned depth = 0;
     unsigned dim = root->point.size();  // dimension of the data point （x,y,z）
 
@@ -47,21 +52,23 @@ std::vector<double> searchNN(Node *root, std::vector<double> target)
         // current dimension
         // !!!!!!!!!!!!! TODO: Segmentation Error!!!!!!!!!
         unsigned cd = depth % dim;
-        std::cout << "  cd: " << cd << "  target: " << target[cd]  << "  currentNN: " << currentNN[cd] << std::endl;
+        std::cout << "  cd: " << cd << "  target: " << target[cd]  << "  currentNode: ";
+        // print_vector(currentNode->point);
 
-        if(currentNode->right->point.empty() || target[cd] < currentNN[cd])
-        {
-            currentNode = currentNode->left;
-            std::cout << "searching left:" << std::endl;
-            print_vector(currentNode->point);
-        }
-        else
-        {
-            currentNode = currentNode->right;
-            std::cout << "searching right:" << std::endl;
-            print_vector(currentNode->point);
-        }
-        ++depth;
+        // if(currentNode->right->point.empty() || target[cd] < currentNode->point[cd])
+        // {
+        //     currentNode = currentNode->left;
+        //     std::cout << "searching left:" << std::endl;
+        //     print_vector(currentNode->point);
+        // }
+        // else
+        // {
+        //     currentNode = currentNode->right;
+        //     std::cout << "searching right:" << std::endl;
+        //     print_vector(currentNode->point);
+        // }
+        
+        // ++depth;
     }
     currentNN = currentNode->point;
     print_vector(currentNN);
@@ -160,14 +167,15 @@ std::vector<double> searchNN(Node *root, std::vector<double> target)
 
 int main()
 {
+    KdTree kdtree;
     Node *root = nullptr;
     auto value_vectors = std::vector<std::vector<double>> {{7,2}, {5,4}, {9,6}, {2,3}, {4,7}, {8,1}};
     for (auto &elem : value_vectors)
         {
-            root = insert(elem, root);
+            root = kdtree.insert(elem, root, 0);
         }
-    print_kd_tree("",root,false);
-    auto target = std::vector<double>{8,1.01};
-    auto NN = searchNN(root, target);
-    print_vector(NN);
+    kdtree.print_tree("",root,false);
+    // auto target = std::vector<double>{8,1.01};
+    // auto NN = searchNN(root, target);
+    // print_vector(NN);
 }

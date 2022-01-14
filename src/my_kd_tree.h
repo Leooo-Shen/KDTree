@@ -28,4 +28,12 @@ std::vector<std::vector<double>> read_from_csv (std::string filename);
 
 Node * delete_node(std::vector<std::vector<double>> &origin_vecs, std::vector<double> point_to_delete);
 
+struct Rect;
+
+Node* getNN(std::vector<double>  Q, Node* T, int cd, Rect BB);
+
+int distance(std::vector<double>  Q,Rect BB, int k=2);
+
+int distance(std::vector<double>  Q, std::vector<double> point, int k=2);
+
 #endif

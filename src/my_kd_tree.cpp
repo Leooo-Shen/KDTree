@@ -7,7 +7,7 @@
 
 #include "my_kd_tree.h"
 
-extern const int k{2};
+extern const int k{3};
 
 // A node in the tree has 3 main elements: the data it carries, a pointer to its left node, a pointer to its right node
 struct Node

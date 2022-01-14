@@ -15,12 +15,12 @@ int main()
 
     auto value_vectors =generate_numbers(100);
 
-    write_to_csv(value_vectors, filepath);
-
     for (auto &elem : value_vectors)
     {
         root = insert(elem, root);
     }
     print_kd_tree("",root,false);
 
+    // Rect BBinit;
+    // NN=getNN()
 }

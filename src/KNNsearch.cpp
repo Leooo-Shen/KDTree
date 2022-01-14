@@ -20,7 +20,13 @@ std::vector<double> Q;
 struct Rect
 {
     int Xmin, Xmax;
-    int Ymin, Ymax;  
+    int Ymin, Ymax;
+    Rect(Xmin,Xmax,Ymin,Ymax){
+    Xmin=Xmin;
+    Ymin=Ymin;
+    Ymax=Ymax;
+    Xmax=Xmax;
+    }  
     trimRight(int cd, std::vector<double> X){
         if(cd%2==0){ Xmin=X[0]; }
         else{Ymin=X[1];}
@@ -31,13 +37,13 @@ struct Rect
     }
 };
 
-int distance(auto Q,Rect BB, int k=2){
+int distance(std::vector<double>  Q,Rect BB, int k=2){
     dx=std::max(BB.Xmin-Q[0],0,BB.Xmax-Q[0]);   
     dy=std::min(BB.Ymin-Q[1],0,BB.Ymax-Q[1]);
     return dx*dx+dy*dy;
 }
 
-int distance(auto Q,auto point, int k=2){
+int distance(std::vector<double>  Q,std::vector<double> point, int k=2){
     return (Q[0]-point[0])^2 +(Q[1]-point[1])^2;
 }
 Node* parentNode= insert(Q,root,0);
@@ -45,7 +51,7 @@ Node* parentNode= insert(Q,root,0);
 best_dist=distance(Q, parentNode.point);
 
 
-Node* getNN(auto Q, Node* T, int cd=0, Rect BB)
+Node* getNN(std::vector<double> Q, Node* T, int cd=0, Rect BB)
     {
 // if this bounding box is too far, do nothing
     if (T == NULL || distance(Q, BB) > best_dist) return;

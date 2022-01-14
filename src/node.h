@@ -15,6 +15,7 @@ struct Node
     {
         point = Tpoint;
         left = right = nullptr;
+       
     }
 
     bool isRoot()

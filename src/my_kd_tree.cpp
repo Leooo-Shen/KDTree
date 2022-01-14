@@ -55,6 +55,8 @@ Node *insert(std::vector<double> &x, Node* tree, unsigned cd)
     {
         //TODO: handle memeory leakage
         Node* tree = new Node(x);
+        tree->left=nullptr;
+        tree->right=nullptr;
         // unique_ptr<Node> tree = (x);
         tree->parent = tree;
 
@@ -195,6 +197,7 @@ Node *delete_node(std::vector<std::vector<double>> &value_vecs, std::vector<doub
     }
     return new_root;
 }
+
 
 
 // given the constructed tree, find the min node in corresponding dimension

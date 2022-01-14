@@ -4,6 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <math.h>
 
 #include "my_kd_tree.h"
 #include "node.h"
@@ -195,28 +196,23 @@ Node *delete_node(std::vector<std::vector<double>> &value_vecs, std::vector<doub
 }
 
 
-// double min_of_three(double x, double y, double z)
-// {
-//     return std::min(x, std::min(y, z));
-// }
-
-
 // given the constructed tree, find the min node in corresponding dimension
 double findMin(Node* root, int desired_dim, unsigned depth)
 {
     //  Base cases
     if (root == NULL)
     {
-        // std::cout << "Empty tree!" << std::endl;
+        std::cout << "Empty tree!" << std::endl;
         return -1;
     }
         
   
-    // Current dimension is computed using current depth and total
-    // dimensions (k)
+    // computer current dimension
     unsigned cd = depth % k;
   
-    // Compare point with root with respect to cd (Current dimension)
+    // if current_dim = desired dim:
+    //      if current node has no left leaf --> current node is the minimum, return current node
+    //      if current node still has left leaf --> go left and recursively search for the min. Then compare the found min with current node.
     if (cd == desired_dim) 
     {
         if (root->left == NULL)
@@ -228,8 +224,8 @@ double findMin(Node* root, int desired_dim, unsigned depth)
     }
     
   
-    // If current dimension is different then minimum can be anywhere
-    // in this subtree
+    // if current_dim != disired dim, then the minimum can be anywhere in the tree. 
+    // recursively goes left and right to search for the min. Then compare them with current node for the actual min.
     else
     {
         return std::min(root->point[desired_dim], 
@@ -238,10 +234,15 @@ double findMin(Node* root, int desired_dim, unsigned depth)
     }
 
 }
-  
-// // A wrapper over findMinRec(). Returns minimum of d'th dimension
-// double findMin(Node* root, int d)
-// {
-//     // Pass current level or depth as 0
-//     return findMinRec(root, d, 0);
-// }
+
+
+double distance(std::vector<double> a, std::vector<double> b)
+{
+    double dist = 0;
+    for (unsigned i=0; i < a.size(); i++)
+    {
+        dist += pow((a[i] - b[i]),2);
+    }
+    return sqrt(dist);
+}
+

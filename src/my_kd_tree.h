@@ -39,6 +39,7 @@ public:
     // find the minimum of given dimension
     double find_min(Node* root, int d, unsigned depth) const;
 
+    //finds the nearest neighbour of a given target
     std::vector<double> nearest_neighbor(Node* root, std::vector<double> target) const;
 
     // free memories of all subtree rooted at current node

@@ -15,6 +15,16 @@ struct Node
         point = Tpoint;
         left = right = nullptr;
     }
+
+    bool isEmpty()
+    {
+        return point.empty();
+    }
+    
+    bool isLeaf()
+    {
+        return (!point.empty()) && left == nullptr && right == nullptr;
+    }
 };
 
 

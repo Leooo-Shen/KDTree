@@ -6,9 +6,9 @@
 #include<fstream>
 
 #include "node.h"
+#include "searchNN.h"
 
 extern const int k;
-
 
 class KdTree
 {
@@ -39,8 +39,9 @@ public:
     // find the minimum of given dimension
     double find_min(Node* root, int d, unsigned depth) const;
 
+
     //finds the nearest neighbour of a given target
-    std::vector<double> nearest_neighbor(Node* root, std::vector<double> target) const;
+    Node* searchNN(std::vector<double> Q, Node* Root, int cd,Rect* BB) ;
 
     // free memories of all subtree rooted at current node
     void free_memory(Node* current_node);

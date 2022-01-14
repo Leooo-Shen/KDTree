@@ -9,8 +9,9 @@
 #include "my_kd_tree.h"
 #include "node.h"
 #include "utils.h"
+#include "searchNN.h"
 
-extern const int k{3};
+extern const int k{2};
 
 
 // recursively insert node to construct the kd-tree
@@ -153,7 +154,57 @@ void KdTree::free_memory(Node* current_node)
 // }
 
 
-// std::vector<double> KdTree::nearest_neighbor(Node* root, std::vector<double> target)
-// {
-//     // TODO
-// }
+double best_dist=-1;
+
+Node* KdTree::searchNN(std::vector<double> Q, Node* Root, int cd,Rect* BB)
+{
+    
+    Node* best=nullptr;
+    if(best_dist==-1){
+        Node* currentNode=  insert(Q,Root,0); 
+        //insert point Q into tree
+        // print_kd_tree("",currentNode,false);
+        //inserted query point to find initial best estimate"
+        auto catchv=0;
+        best=currentNode;
+        while(!currentNode->isLeaf())
+        {
+            
+            if(Q[cd]<currentNode->point[cd]){
+                best=currentNode;
+                if(!(currentNode->left == nullptr)) currentNode= currentNode->left; //safety
+            }
+            else{best=currentNode;
+                if(!(currentNode->right == nullptr)) currentNode= currentNode->right;} //safety}
+            // std::cout<<currentNode->isLeaf();
+            cd=(cd+1)%2;
+            
+        }
+        best_dist= distance(Q, best->point);
+        std::cout<<"intial best: "<< best_dist<<std::endl;
+        print_vector(best->point);
+    }
+
+    //Now we check neighboring nodes :)
+    
+    if(Root==nullptr || distance(Q,BB)>best_dist){
+        return nullptr;
+        }  
+    double dist=distance(Q,Root->point); 
+    if(dist<best_dist){
+        best=Root;
+        best_dist=dist;
+        
+    }
+    if(Q[cd]<Root->point[cd]){
+        searchNN(Q,Root->left,(cd+1)%2, BB->trimLeft(cd,Root->point));
+        searchNN(Q,Root->right,(cd+1)%2, BB->trimRight(cd,Root->point));
+    }
+    else{
+        searchNN(Q,Root->right,(cd+1)%2, BB->trimRight(cd,Root->point));
+        searchNN(Q,Root->left,(cd+1)%2, BB->trimLeft(cd,Root->point));
+
+    }
+
+    return best;
+}

@@ -8,12 +8,12 @@
 
 #include "my_kd_tree.h"
 #include "utils.h"
-
+#include "searchNN.h"
 
 
 int main()
 {
-    std::string filepath = "../data/generated_values.csv";
+    std::string filepath = "../data/test_numbers.csv";
     KdTree kdtree;
     Node* root = nullptr;
     std::vector<std::vector<double>> value_vectors;
@@ -40,7 +40,12 @@ int main()
         kdtree.print_tree("",root,false);
         std::cout << "The minimum of dimension 0 is: " << kdtree.find_min(root, 0, 0) << std::endl;
         std::cout << "The minimum of dimension 1 is: " << kdtree.find_min(root, 1, 0) << std::endl;
-
+        std::vector<double> Target= {4,35};
+        Rect* newrect=new Rect(0,0,100,100);
+        Node* NN=kdtree.searchNN(Target, root,0, newrect);
+        
+        std::cout<<"final best: "<< distance(NN->point,Target)<<std::endl;
+        print_vector(NN->point);
         // kdtree.print_tree("",root,false);
 
         // Node* new_tree = kdtree.delete_node(value_vectors, value_vectors[0]);

@@ -12,12 +12,16 @@ kd-tree
 |   main.cpp
 |───build
 |───data
-|      points.csv
+|      generated_values.csv
 |───src
-|      kd-tree.cpp
-|      kd-tree.h
-|      kd-search.cpp
-|      kd-search.h
+|      main.cpp
+|      node.cpp
+|      my_kd_tree.cpp
+|      my_kd_tree.h
+|      searchNN.cpp
+|      searchNN.h
+|      utils.cpp
+|      utils.h
 |      CMakeLists.txt
 |───test
 |      kd-tree-test.cpp
@@ -25,14 +29,18 @@ kd-tree
 |      CMakeLists.txt
 ```
 
+## Descriptions
+To use the 
 
-## Sprint 1
+
+## Sprint Targets 
+### Sprint 1
 
 * Kd-tree can be constructed
 * Points can be added 
 * Points can be read in from file
 
-## Sprint 2
+### Sprint 2
 
 * Implement 2 search strategies: find the minimum, KNN search
 * Use classes 
@@ -40,8 +48,7 @@ kd-tree
 * Add some test functions
 
 
-
-## Sprint 3
+### Sprint 3
 
 * Log the calculation time
 * Analyze the bottleneck of code performance

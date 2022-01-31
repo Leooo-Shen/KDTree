@@ -14,6 +14,12 @@ double max(double a, double b, double c);
 
 struct Rect
 {
+    /*
+    Create a rectangle struct with 4 vertices
+    Contains trimright and trimleft functions:
+                    Given a vector T, and dimension cd, trim the rectangle with old vertices plus new vertices considering vector T (Better understood within NNsearch context)
+
+    */
     double Xmin,Xmax;
     double Ymin, Ymax;
     Rect(double Xmingiven,double Xmaxgiven, double Ymaxgiven, double Ymingiven){

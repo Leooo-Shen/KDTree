@@ -14,9 +14,22 @@
 extern const int k{2};
 
 
-// recursively insert node to construct the kd-tree
 Node* KdTree::insert(std::vector<double> &x, Node* tree, unsigned cd)
 {   
+
+    // recursively insert node to construct the kd-tree
+    /*
+    Insert a new node to a tree, can be done recursively for a whole tree;
+    param:
+        inputs: 
+            x: vector of doubles to be inserted to the new node 
+            tree: direct parent of the node
+            cd: hyperparamater used to alternate between different dimensions
+        returns:
+            pointer: returns pointer to the root of the tree
+
+    */
+
     if (tree == nullptr)
     {
         Node* tree = new Node(x);
@@ -43,9 +56,11 @@ Node* KdTree::insert(std::vector<double> &x, Node* tree, unsigned cd)
 }
 
 
-// search if the node exists in the tree
 bool KdTree::contain_node(Node *root, std::vector<double> search_point, unsigned depth) const
 {
+
+    // search if the node exists in the tree
+
     if (root == nullptr)
     {
         // std::cout << "No tree available!" << std::endl;
@@ -158,35 +173,50 @@ double best_dist=-1;
 
 Node* KdTree::searchNN(std::vector<double> Q, Node* Root, int cd,Rect* BB)
 {
-    
+    /* 
+    Defines nearest neighbour search algorithm in the KDtree: more info [here](https://en.wikipedia.org/wiki/K-d_tree#Nearest_neighbour_search)
+    param:
+        inputs: 
+            Q: Query point of which the nearest neighbor has to be found 
+            Root: Tree that contains all nodes of which one will be the nearest neighbour to Q
+            cd: hyperparamater used to store the alternating dimension checks
+            BB: rectangle struct defined in searchNN.h; is defined as the bounding box of each node more info [here](https://gopalcdas.com/2017/05/24/construction-of-k-d-tree-and-using-it-for-nearest-neighbour-search/)
+        returns:
+            Nearest neighbour pointer of Q within kdtree Root
+
+    */
     Node* best=nullptr;
     if(best_dist==-1){
+        //initial best estimate as the parent of inserted query point, Q
         Node* currentNode=  insert(Q,Root,0); 
-        //insert point Q into tree
-        // print_kd_tree("",currentNode,false);
-        //inserted query point to find initial best estimate"
         auto catchv=0;
+        //auxillary variable for early stopping
         best=currentNode;
+        //we define the best node to be the root of the tree Root
         while(!currentNode->isLeaf())
         {
-            
+            //go through the whole Root tree until you find our inserted Q, i.e. currentNode is a leaf
+
             if(Q[cd]<currentNode->point[cd]){
                 best=currentNode;
                 if(!(currentNode->left == nullptr)) currentNode= currentNode->left; //safety
             }
             else{best=currentNode;
                 if(!(currentNode->right == nullptr)) currentNode= currentNode->right;} //safety}
-            // std::cout<<currentNode->isLeaf();
             cd=(cd+1)%2;
-            
+            //our initial best estimate is the direct parent of the leaf node Q
         }
         best_dist= distance(Q, best->point);
         std::cout<<"intial best: "<< best_dist<<std::endl;
         print_vector(best->point);
     }
 
-    //Now we check neighboring nodes :)
-    
+    /*
+    Now we check neighboring nodes for better estimates, :)
+    Recursively go through all parents of our initial best estimate, with the bounding box of each and look for better estimates
+    We use auxillary distance functions form the searchNN.cpp files, including distances between rect and vector
+    */
+   
     if(Root==nullptr || distance(Q,BB)>best_dist){
         return nullptr;
         }  

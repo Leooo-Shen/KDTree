@@ -11,10 +11,14 @@
 #include "my_kd_tree.h"
 
 
-// Reload the << to ouput vectors more conviently
+/*
+    General utility functions/ helper functions for testing, printing, and generating data for KD trees
+*/
+
+
 std::ostream &operator<<(std::ostream &os, std::vector<double> vec)
 {
-    
+    // Reload the << to ouput vectors more conviently
     for (const auto &elem : vec)
     {
         os << elem << " ";
@@ -48,8 +52,9 @@ std::vector<std::vector<double>> generate_numbers(int n)
 }
 
 
-// visualize the kd-tree
+
 void print_vector(const std::vector<double>& Vector){
+    // print vector
     std::cout<<"[";
     std::string messy{""};
     for(auto elements: Vector){
@@ -65,6 +70,16 @@ void print_vector(const std::vector<double>& Vector){
 void write_to_csv(const std::vector<std::vector<double>> &generated_numbers,
                   const std::string& filename)
 {
+
+    /*
+    Create csv file from vector of vectors;
+    param:
+        inputs: 
+            generated_numbers: vector of vectors containing all data inputs (could've been generated from generated numbers for example)
+            filename: filepath of csv file to be filled in with from generated_numbers
+
+    */
+
     // open file stream for output
     std::ofstream csv_file(filename);
 
@@ -81,6 +96,17 @@ void write_to_csv(const std::vector<std::vector<double>> &generated_numbers,
 
 std::vector<std::vector<double>> read_from_csv(const std::string& filename)
 {
+    /*
+    Create vector of vectors from csv file (the opposite of write_to_csv);
+    param:
+        inputs: 
+            filename: filepath of csv to be read from
+        returns:
+            vector of vectors based on the csv file
+
+    */
+
+
     std::ifstream ifs(filename);
     std::vector<std::vector<double>> value_vectors;
     std::vector<double> point;
@@ -115,6 +141,9 @@ std::vector<std::vector<double>> read_from_csv(const std::string& filename)
 
 void test_tree_construction()
 {
+    //Generate a tree based on preconceived data and print it (for testing);
+    
+
     KdTree kdtree;
     Node *root = nullptr;
     auto value_vectors = std::vector<std::vector<double>> {{7,2}, {5,4}, {9,6}, {2,3}, {4,7}, {8,1}};
@@ -130,6 +159,9 @@ void test_tree_construction()
 
 void test_find_min()
 {
+    
+    //test for finding the minimum of a tree with preconcieved data 
+    
     KdTree kdtree;
     Node *root = nullptr;
     auto value_vectors = std::vector<std::vector<double>> {{7,2}, {5,4}, {9,6}, {2,3}, {4,7}, {8,1}};

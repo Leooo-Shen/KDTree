@@ -32,7 +32,7 @@ node.h
 rect.h
 /home/leo/Desktop/ap_kdtree/include/rect.h
 
-/home/leo/Desktop/ap_kdtree/src/main.cpp
+/home/leo/Desktop/ap_kdtree/test/time_cost.cpp
 iostream
 -
 iterator

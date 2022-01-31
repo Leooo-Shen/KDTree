@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/time_cost.dir/home/leo/Desktop/ap_kdtree/test/time_cost.cpp.o CMakeFiles/time_cost.dir/my_kd_tree.cpp.o CMakeFiles/time_cost.dir/utils.cpp.o  -o time_cost 

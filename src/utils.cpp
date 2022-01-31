@@ -24,7 +24,7 @@ std::ostream &operator<<(std::ostream &os, std::vector<double> vec)
     return os;
 }
 
-std::vector<std::vector<double>> generate_numbers(int n)
+std::vector<std::vector<double>> generate_numbers(int n, unsigned k)
 {
     /*
     Generate fake data of k-dimensions;
@@ -111,7 +111,7 @@ std::vector<std::vector<double>> read_from_csv(const std::string &filename)
 
     if (ifs.is_open())
     {
-        std::cout << "opening the file: " << filename << std::endl;
+        std::cout << "Opening the file: " << filename << std::endl;
         std::string line;
         // throw away first line: contains csv header
         std::getline(ifs, line);
@@ -129,7 +129,7 @@ std::vector<std::vector<double>> read_from_csv(const std::string &filename)
         }
         ifs.close();
         clock_t endTime = clock();
-        std::cout << "Time cost in read_from_csv: " << double(endTime - startTime) / CLOCKS_PER_SEC << "s" << std::endl;
+        std::cout << "[Time cost in read_from_csv: " << double(endTime - startTime) / CLOCKS_PER_SEC << "s]" << std::endl;
     }
 
     else
@@ -141,7 +141,6 @@ std::vector<std::vector<double>> read_from_csv(const std::string &filename)
 
 // Helper functions for the Nearest Neighbour search
 // (https://en.wikipedia.org/wiki/K-d_tree#Nearest_neighbour_search)
-
 double distance(std::vector<double> A, std::vector<double> B)
 {
     /*
@@ -195,7 +194,7 @@ double max(double a, double b, double c)
     }
 }
 
-double distance(std::vector<double> Q, Rect *BB)
+double distance(std::vector<double> Q, std::shared_ptr<Rect> BB)
 {
     /*
     Find the distance between vector Q and rectangle BB, if vector Q is in rectangle BB the distance is 0

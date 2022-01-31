@@ -2,6 +2,7 @@
 #define __RECT__
 
 #include <vector>
+#include <memory>
 
 struct Rect
 {
@@ -20,29 +21,34 @@ struct Rect
         Ymin = Ymingiven;
         Ymax = Ymaxgiven;
     }
-    Rect *trimRight(int cd, std::vector<double> T)
+    auto trimRight(int cd, std::vector<double> T)
     {
         if (cd % 2 == 0)
         {
-            Rect *newrect = new Rect(Xmin = T[0], Xmax, Ymin, Ymax);
+            // Rect *newrect = new Rect(Xmin = T[0], Xmax, Ymin, Ymax);
+            std::shared_ptr<Rect> newrect (new Rect(Xmin = T[0], Xmax, Ymin, Ymax));
             return newrect;
         }
         else
         {
-            Rect *newrect = new Rect(Xmin, Xmax, Ymin = T[1], Ymax);
+            // Rect *newrect = new Rect(Xmin, Xmax, Ymin = T[1], Ymax);
+            std::shared_ptr<Rect> newrect(new Rect(Xmin, Xmax, Ymin = T[1], Ymax));
             return newrect;
         }
     }
-    Rect *trimLeft(int cd, std::vector<double> T)
+    // Rect *trimLeft(int cd, std::vector<double> T)
+    auto trimLeft(int cd, std::vector<double> T)
     {
         if (cd % 2 == 0)
         {
-            Rect *newrect = new Rect(Xmin, Xmax = T[0], Ymin, Ymax);
+            // Rect *newrect = new Rect(Xmin, Xmax = T[0], Ymin, Ymax);
+            std::shared_ptr<Rect> newrect (new Rect(Xmin, Xmax = T[0], Ymin, Ymax));
             return newrect;
         }
         else
         {
-            Rect *newrect = new Rect(Xmin, Xmax, Ymin, Ymax = T[1]);
+            // Rect *newrect = new Rect(Xmin, Xmax, Ymin, Ymax = T[1]);
+            std::shared_ptr<Rect> newrect(new Rect(Xmin, Xmax, Ymin, Ymax = T[1]));
             return newrect;
         }
     }

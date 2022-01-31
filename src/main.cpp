@@ -36,8 +36,8 @@ int main()
         break;
 
     case 1:
-        filepath = "../data/generated_values.csv";
-        value_vectors = generate_numbers(100);
+        filepath = "../data/generated_values_small.csv";
+        value_vectors = generate_numbers(100, k);
         write_to_csv(value_vectors, filepath);
         break;
 
@@ -47,6 +47,7 @@ int main()
     }
 
     value_vectors = read_from_csv(filepath);
+    auto dim = value_vectors[0].size();  // the dimension of the value vectors    
     KdTree kdtree;
 
     // construct the tree
@@ -56,8 +57,8 @@ int main()
         std::cout << "Successfully constructed the tree!" << std::endl;
     }
 
-    std::cout << std::endl;
-    std::cout << "Do you want to print the tree structure?" << std::endl;
+    std::cout << std::endl
+              << "Do you want to print the tree structure?" << std::endl;
     std::cout << "(case 0) yes " << std::endl;
     std::cout << "(case 1) no " << std::endl;
     unsigned print_case;
@@ -81,13 +82,16 @@ int main()
     unsigned search_mode;
     std::cin >> search_mode;
     std::vector<double> min_values;
-    std::vector<double> Target;
-    double target_value;
-    auto dim = kdtree.dimension(tree_root);
+    double tmp; 
+    std::vector<double> Target;  // your target point to find its nearest neighbor
+    Node* NN;  // nearest neighbor
+
+    std::shared_ptr<Rect> init_rect(new Rect(0, 0, 100, 100)); // a Rect is used during NN search. See Rect.h and my_kd_tree.cpp for more details
 
     switch (search_mode)
     {
     case 0:
+        // find minimum value of all dimensions
         min_values = kdtree.find_min_all(tree_root, 0);
         break;
 
@@ -96,23 +100,21 @@ int main()
         for (unsigned i = 0; i < dim; i++)
         {
             std::cout << "dimension " << i << ":";
-            std::cin >> target_value;
-            Target.push_back(target_value);
+            std::cin >> tmp;
+            Target.push_back(tmp);
         }
+
+
+        NN = kdtree.searchNN(Target, tree_root, 0, init_rect);
+        std::cout << std::endl
+                  << "Nearest Neighbor:  ";
+        print_vector(NN->point);
         break;
 
     default:
         std::cout << "Invalid input!" << std::endl;
         break;
     }
-
-    // std::unique_ptr<Rect> newrect (new Rect(0, 0, 100, 100));
-    Rect *newrect = new Rect(0, 0, 100, 100);
-    Node *NN = kdtree.searchNN(Target, tree_root, 0, newrect);
-
-    std::cout << std::endl;
-    std::cout << "Nearest Neighbor:  ";
-    print_vector(NN->point);
 
     // delete the tree to free memory
     kdtree.delete_tree(tree_root);

@@ -11,7 +11,7 @@
 
 std::ostream &operator<<(std::ostream &os, std::vector<double> vec);
 
-std::vector<std::vector<double>> generate_numbers(int n);
+std::vector<std::vector<double>> generate_numbers(int n, unsigned k);
 
 void print_vector(const std::vector<double>& Vector);
 
@@ -29,6 +29,6 @@ double distance(std::vector<double> A, std::vector<double> B);
 
 double max(double a, double b, double c);
 
-double distance(std::vector<double> Q,Rect* BB);
+double distance(std::vector<double> Q,std::shared_ptr<Rect> BB);
 
 #endif

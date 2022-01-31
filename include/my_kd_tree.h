@@ -33,7 +33,7 @@ public:
     std::vector<double> find_min_all(Node* root, unsigned desired_dim, unsigned depth=0) const;
 
     //finds the nearest neighbour of a given target
-    Node* searchNN(std::vector<double> Q, Node* Root, int cd,Rect* BB) ;
+    Node* searchNN(std::vector<double> Q, Node* Root, int cd, std::shared_ptr<Rect> BB) ;
 
     // free memories of all subtree rooted at current node
     void delete_tree(Node* current_node);

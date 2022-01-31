@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named time_cost
+
+# Build rule for target.
+time_cost: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 time_cost
+.PHONY : time_cost
+
+# fast build rule for target.
+time_cost/fast:
+	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/build
+.PHONY : time_cost/fast
+
+#=============================================================================
 # Target rules for targets named main
 
 # Build rule for target.
@@ -122,6 +135,33 @@ main: cmake_check_build_system
 main/fast:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
+
+home/leo/Desktop/ap_kdtree/test/time_cost.o: home/leo/Desktop/ap_kdtree/test/time_cost.cpp.o
+
+.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.o
+
+# target to build an object file
+home/leo/Desktop/ap_kdtree/test/time_cost.cpp.o:
+	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/home/leo/Desktop/ap_kdtree/test/time_cost.cpp.o
+.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.cpp.o
+
+home/leo/Desktop/ap_kdtree/test/time_cost.i: home/leo/Desktop/ap_kdtree/test/time_cost.cpp.i
+
+.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.i
+
+# target to preprocess a source file
+home/leo/Desktop/ap_kdtree/test/time_cost.cpp.i:
+	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/home/leo/Desktop/ap_kdtree/test/time_cost.cpp.i
+.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.cpp.i
+
+home/leo/Desktop/ap_kdtree/test/time_cost.s: home/leo/Desktop/ap_kdtree/test/time_cost.cpp.s
+
+.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.s
+
+# target to generate assembly for a file
+home/leo/Desktop/ap_kdtree/test/time_cost.cpp.s:
+	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/home/leo/Desktop/ap_kdtree/test/time_cost.cpp.s
+.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.cpp.s
 
 main.o: main.cpp.o
 
@@ -156,6 +196,7 @@ my_kd_tree.o: my_kd_tree.cpp.o
 
 # target to build an object file
 my_kd_tree.cpp.o:
+	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/my_kd_tree.cpp.o
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/my_kd_tree.cpp.o
 .PHONY : my_kd_tree.cpp.o
 
@@ -165,6 +206,7 @@ my_kd_tree.i: my_kd_tree.cpp.i
 
 # target to preprocess a source file
 my_kd_tree.cpp.i:
+	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/my_kd_tree.cpp.i
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/my_kd_tree.cpp.i
 .PHONY : my_kd_tree.cpp.i
 
@@ -174,6 +216,7 @@ my_kd_tree.s: my_kd_tree.cpp.s
 
 # target to generate assembly for a file
 my_kd_tree.cpp.s:
+	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/my_kd_tree.cpp.s
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/my_kd_tree.cpp.s
 .PHONY : my_kd_tree.cpp.s
 
@@ -183,6 +226,7 @@ utils.o: utils.cpp.o
 
 # target to build an object file
 utils.cpp.o:
+	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/utils.cpp.o
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/utils.cpp.o
 .PHONY : utils.cpp.o
 
@@ -192,6 +236,7 @@ utils.i: utils.cpp.i
 
 # target to preprocess a source file
 utils.cpp.i:
+	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/utils.cpp.i
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/utils.cpp.i
 .PHONY : utils.cpp.i
 
@@ -201,6 +246,7 @@ utils.s: utils.cpp.s
 
 # target to generate assembly for a file
 utils.cpp.s:
+	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/utils.cpp.s
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/utils.cpp.s
 .PHONY : utils.cpp.s
 
@@ -212,7 +258,11 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... time_cost"
 	@echo "... main"
+	@echo "... home/leo/Desktop/ap_kdtree/test/time_cost.o"
+	@echo "... home/leo/Desktop/ap_kdtree/test/time_cost.i"
+	@echo "... home/leo/Desktop/ap_kdtree/test/time_cost.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

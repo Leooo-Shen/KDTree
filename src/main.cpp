@@ -40,7 +40,7 @@ int main()
         kdtree.print_tree("",root,false);
         std::cout << "The minimum of dimension 0 is: " << kdtree.find_min(root, 0, 0) << std::endl;
         std::cout << "The minimum of dimension 1 is: " << kdtree.find_min(root, 1, 0) << std::endl;
-        std::vector<double> Target= {4,35};
+        std::vector<double> Target= {4, 12};
         Rect* newrect=new Rect(0,0,100,100);
         Node* NN=kdtree.searchNN(Target, root,0, newrect);
         

@@ -48,18 +48,6 @@ public:
 
     // // destruct the tree
     // ~KdTree();
-
-// private:
-//     struct Node
-//     {
-//         std::vector<double> point;  // data
-//         Node* left;  // pointer to the left child
-//         Node* right;  // pointer to the right child
-//         Node* parent; // pointer to current_node's parent_node, nullptr if current_node is the root
-
-//         Node(const std::vector<double> &_point):
-//         point(_point), left(nullptr), right(nullptr), parent(nullptr){}
-//     };
 };
 
 

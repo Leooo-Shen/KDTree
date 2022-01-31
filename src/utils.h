@@ -8,7 +8,6 @@
 
 #include "node.h"
 
-extern const int k;
 
 std::ostream &operator<<(std::ostream &os, std::vector<double> vec);
 

@@ -11,6 +11,9 @@
 #include "my_kd_tree.h"
 
 
+
+extern const int k;
+
 /*
     General utility functions/ helper functions for testing, printing, and generating data for KD trees
 */
@@ -114,10 +117,10 @@ std::vector<std::vector<double>> read_from_csv(const std::string& filename)
     std::cout << "opening the file: " << filename << std::endl;
 
 
-    if (!ifs.is_open())
-    {
-        throw -1;
-    }
+    // if (!ifs.is_open())
+    // {
+    //     throw -1;
+    // }
 
     std::string line;
     // throw away first line: contains csv header

@@ -11,7 +11,7 @@
 #include "utils.h"
 #include "searchNN.h"
 
-extern const int k{2};
+extern const int k;
 
 
 Node* KdTree::insert(std::vector<double> &x, Node* tree, unsigned cd)

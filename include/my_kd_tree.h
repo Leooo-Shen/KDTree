@@ -3,14 +3,13 @@
 
 #include "utils.h"
 
-extern const int k;
 
 class KdTree
 {
 public:
 
     // return the dimension of data points in the tree
-    unsigned dimension() const;
+    unsigned dimension(Node* root);
 
     Node* insert(const std::vector<double> &x, Node* tree, unsigned cd);
 

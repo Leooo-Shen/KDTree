@@ -86,6 +86,8 @@ void write_to_csv(const std::vector<std::vector<double>> &generated_numbers,
         csv_file << generated_numbers[i];
     }
     csv_file.close();
+
+    std::cout << "File saved at: " << filename << std::endl;
 }
 
 std::vector<std::vector<double>> read_from_csv(const std::string &filename)

@@ -8,6 +8,10 @@
 
 extern const int k;
 
+unsigned KdTree::dimension(Node* root)
+{
+    return root->point.size();
+}
 
 Node* KdTree::insert(const std::vector<double> &x, Node* tree, unsigned cd)
 {   
@@ -65,12 +69,10 @@ bool KdTree::exist(const Node* root)
 {
     if (root != NULL) 
     {
-        std::cout << "Tree exist!" << std::endl;
         return true;
     }
     else
     {
-        std::cout << "Tree does not exist!" << std::endl;
         return false;
     }
 }

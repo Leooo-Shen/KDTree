@@ -15,32 +15,102 @@ extern const int k{2};
 
 int main()
 {
+    std::cout << "#####################################################" << std::endl;
+    std::cout << "##  Welcome to Amr and Chengzhi's KD-Tree project! ##" << std::endl;
+    std::cout << "#####################################################" << std::endl;
+    std::cout << std::endl;
 
-    std::string filepath = "../data/generated_values.csv";
-    KdTree kdtree;
+    std::cout << "Please choos the input mode:" << std::endl;
+    std::cout << "(case 0) use your own .csv data file " << std::endl;
+    std::cout << "(case 1) generate random data " << std::endl;
+
+    std::string filepath;
     std::vector<std::vector<double>> value_vectors;
+    unsigned input_mode;
+    std::cin >> input_mode;
 
-    // generate toy data
-    // value_vectors = generate_numbers(100);
+    switch (input_mode)
+    {
+    case 0:
+        std::cin >> filepath;
+        break;
 
-    // write generated data to csv
-    // write_to_csv(value_vectors, filepath);
+    case 1:
+        filepath = "../data/generated_values.csv";
+        value_vectors = generate_numbers(100);
+        write_to_csv(value_vectors, filepath);
+        break;
 
-    // read data as vector of vectors from csv file
+    default:
+        std::cout << "Invalid input!" << std::endl;
+        break;
+    }
+
     value_vectors = read_from_csv(filepath);
+    KdTree kdtree;
 
+    // construct the tree
     auto tree_root = kdtree.construct(value_vectors);
+    if (kdtree.exist(tree_root))
+    {
+        std::cout << "Successfully constructed the tree!" << std::endl;
+    }
 
-    kdtree.print_tree("", tree_root);
+    std::cout << std::endl;
+    std::cout << "Do you want to print the tree structure?" << std::endl;
+    std::cout << "(case 0) yes " << std::endl;
+    std::cout << "(case 1) no " << std::endl;
+    unsigned print_case;
+    std::cin >> print_case;
 
-    auto min_values = kdtree.find_min_all(tree_root, 0);
+    switch (print_case)
+    {
+    case 0:
+        kdtree.print_tree("", tree_root);
+        break;
 
-    std::vector<double> Target = {4, 32};
+    default:
+        break;
+    }
+
+    std::cout << std::endl;
+    std::cout << "Choose the search strategy" << std::endl;
+    std::cout << "(case 0) find minimum value " << std::endl;
+    std::cout << "(case 1) find nearest neighbor " << std::endl;
+
+    unsigned search_mode;
+    std::cin >> search_mode;
+    std::vector<double> min_values;
+    std::vector<double> Target;
+    double target_value;
+    auto dim = kdtree.dimension(tree_root);
+
+    switch (search_mode)
+    {
+    case 0:
+        min_values = kdtree.find_min_all(tree_root, 0);
+        break;
+
+    case 1:
+        std::cout << "Please input your target point: " << std::endl;
+        for (unsigned i = 0; i < dim; i++)
+        {
+            std::cout << "dimension " << i << ":";
+            std::cin >> target_value;
+            Target.push_back(target_value);
+        }
+        break;
+
+    default:
+        std::cout << "Invalid input!" << std::endl;
+        break;
+    }
 
     // std::unique_ptr<Rect> newrect (new Rect(0, 0, 100, 100));
-    Rect *newrect = new Rect(0, 0, 100, 100); 
+    Rect *newrect = new Rect(0, 0, 100, 100);
     Node *NN = kdtree.searchNN(Target, tree_root, 0, newrect);
 
+    std::cout << std::endl;
     std::cout << "Nearest Neighbor:  ";
     print_vector(NN->point);
 

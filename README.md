@@ -13,20 +13,20 @@ kd-tree
 |───build
 |───data
 |      generated_values.csv
+|───include  
+|      my_kd_tree.h
+|      node.h
+|      rect.h
+|      utils.h
 |───src
 |      main.cpp
-|      node.cpp
 |      my_kd_tree.cpp
-|      my_kd_tree.h
 |      searchNN.cpp
-|      searchNN.h
 |      utils.cpp
-|      utils.h
 |      CMakeLists.txt
 |───test
-|      kd-tree-test.cpp
-|      kd-search-test.cpp
-|      CMakeLists.txt
+|      test.cpp
+|      time_cost.cpp
 ```
 
 ## Descriptions

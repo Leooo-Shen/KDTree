@@ -100,6 +100,7 @@ void KdTree::print_tree(const std::string& prefix, const Node* node, bool isLeft
         print_tree( prefix + (isLeft ? "│   " : "    "), node->left, true);
         print_tree( prefix + (isLeft ? "│   " : "    "), node->right, false);
     }
+
 }
 
 
@@ -119,6 +120,8 @@ Node* KdTree::delete_node(std::vector<std::vector<double>> &value_vecs, std::vec
 // given the constructed tree, find the min node in corresponding dimension
 double KdTree::find_min(Node* root, int desired_dim, unsigned depth) const
 {
+
+    clock_t startTime = clock();
     //  Base cases
     if (root == NULL)
     {
@@ -153,6 +156,9 @@ double KdTree::find_min(Node* root, int desired_dim, unsigned depth) const
                     find_min(root->right, desired_dim, depth + 1)));
     }
 
+    clock_t endTime = clock();
+	std::cout << "Time cost in find_min: "  << double(endTime - startTime) / CLOCKS_PER_SEC << "s" << std::endl;
+
 }
 
 void KdTree::free_memory(Node* current_node)
@@ -180,7 +186,7 @@ Node* KdTree::searchNN(std::vector<double> Q, Node* Root, int cd,Rect* BB)
             Q: Query point of which the nearest neighbor has to be found 
             Root: Tree that contains all nodes of which one will be the nearest neighbour to Q
             cd: hyperparamater used to store the alternating dimension checks
-            BB: rectangle struct defined in searchNN.h; is defined as the bounding box of each node more info [here](https://gopalcdas.com/2017/05/24/construction-of-k-d-tree-and-using-it-for-nearest-neighbour-search/)
+            BB: rectangle struct defined in searchNN.h; is defined as the bounding box of each node. more info [here](https://gopalcdas.com/2017/05/24/construction-of-k-d-tree-and-using-it-for-nearest-neighbour-search/)
         returns:
             Nearest neighbour pointer of Q within kdtree Root
 
@@ -207,7 +213,7 @@ Node* KdTree::searchNN(std::vector<double> Q, Node* Root, int cd,Rect* BB)
             //our initial best estimate is the direct parent of the leaf node Q
         }
         best_dist= distance(Q, best->point);
-        std::cout<<"intial best: "<< best_dist<<std::endl;
+        std::cout<<"intial best: ";
         print_vector(best->point);
     }
 

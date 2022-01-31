@@ -42,5 +42,5 @@ struct Rect
     }
 };
 
-double distance(std::vector<double>  Q,Rect* BB);
+double distance(std::vector<double> Q,Rect* BB);
 #endif

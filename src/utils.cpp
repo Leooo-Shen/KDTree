@@ -5,6 +5,7 @@
 #include <sstream>
 #include <algorithm>
 #include <math.h>
+#include <ctime>
 
 #include "utils.h"
 #include "node.h"
@@ -109,35 +110,39 @@ std::vector<std::vector<double>> read_from_csv(const std::string& filename)
 
     */
 
+    clock_t startTime = clock();
 
     std::ifstream ifs(filename);
     std::vector<std::vector<double>> value_vectors;
     std::vector<double> point;
     double single_value;
-    std::cout << "opening the file: " << filename << std::endl;
-
-
-    // if (!ifs.is_open())
-    // {
-    //     throw -1;
-    // }
-
-    std::string line;
-    // throw away first line: contains csv header
-    std::getline(ifs, line);
-
-    // while lines in csv
-    while (std::getline(ifs, line))
+    
+    if (ifs.is_open())
     {
-        std::stringstream line_stream(line);
-        while (line_stream >> single_value)
+        std::cout << "opening the file: " << filename << std::endl;
+        std::string line;
+        // throw away first line: contains csv header
+        std::getline(ifs, line);
+
+        // while lines in csv
+        while (std::getline(ifs, line))
         {
-            point.push_back(single_value);
+            std::stringstream line_stream(line);
+            while (line_stream >> single_value)
+            {
+                point.push_back(single_value);
+            }
+            value_vectors.push_back(point);
+            point.clear();
         }
-        value_vectors.push_back(point);
-        point.clear();
+        ifs.close();
+        clock_t endTime = clock();
+        std::cout << "Time cost in read_from_csv: "  << double(endTime - startTime) / CLOCKS_PER_SEC << "s" << std::endl;
     }
-    ifs.close();
+
+    else{
+        std::cout << "Cannot open the file" << std::endl;
+    }
     return value_vectors;
 }
 

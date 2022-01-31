@@ -17,21 +17,19 @@ extern const int k{2};
 
 int main()
 {
-    // clock_t startTime = clock();
 
-    std::string filepath = "../data/test_numbers.csv";
+    std::string filepath = "../data/generated_values.csv";
     KdTree kdtree;
     Node* root = nullptr;
     std::vector<std::vector<double>> value_vectors;
 
-    // // generate toy data
+    // generate toy data
     // value_vectors = generate_numbers(100);
 
     // write generated data to csv
     // write_to_csv(value_vectors, filepath);
 
     // read data as vector of vectors from csv file
-
     value_vectors = read_from_csv(filepath);
 
     // construct the tree
@@ -47,25 +45,18 @@ int main()
     std::cout << "The minimum of dimension 1 is: " << kdtree.find_min(root, 1, 0) << std::endl;
 
 
-    std::vector<double> Target= {4,35};
+    std::vector<double> Target= {102,46};
     Rect* newrect=new Rect(0,0,100,100);
     Node* NN=kdtree.searchNN(Target, root,0, newrect);
     
-    std::cout<<"final best: "<< distance(NN->point,Target)<<std::endl;
+    std::cout<<"final best: ";
     print_vector(NN->point);
     // kdtree.print_tree("",root,false);
 
-    // Node* new_tree = kdtree.delete_node(value_vectors, value_vectors[0]);
-    // kdtree.print_tree("",new_tree,false);
 
     // kdtree.free_memory(root); 
 
-    // test_tree_construction();
-    // test_find_min();
 
-    // clock_t endTime = clock();
-	// std::cout << "time cost"  << double(endTime - startTime) / CLOCKS_PER_SEC << "s" << std::endl;
-    // system("pause");
     return 0;
 
 }

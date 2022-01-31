@@ -1,24 +1,17 @@
 #include <iostream>
-#include <string>
-#include <vector>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
 #include <math.h>
 #include <ctime>
 
-#include "utils.h"
-#include "node.h"
-#include "my_kd_tree.h"
-
-
+#include "../include/utils.h"
 
 extern const int k;
 
 /*
     General utility functions/ helper functions for testing, printing, and generating data for KD trees
 */
-
 
 std::ostream &operator<<(std::ostream &os, std::vector<double> vec)
 {
@@ -31,13 +24,12 @@ std::ostream &operator<<(std::ostream &os, std::vector<double> vec)
     return os;
 }
 
-
 std::vector<std::vector<double>> generate_numbers(int n)
 {
     /*
     Generate fake data of k-dimensions;
     param:
-        inputs: 
+        inputs:
             n: total numbers of vectors want to generate (int)
         returns:
             generated_int: a general vector of generated value vectors (std::vector<std::vector<double>>)
@@ -49,36 +41,35 @@ std::vector<std::vector<double>> generate_numbers(int n)
     {
         for (int j = 0; j < k; j++)
         {
-            generated_values[i][j] = (double)rand()/RAND_MAX*300-150;
+            generated_values[i][j] = (double)rand() / RAND_MAX * 300 - 150;
         }
     }
     return generated_values;
 }
 
-
-
-void print_vector(const std::vector<double>& Vector){
+void print_vector(const std::vector<double> &Vector)
+{
     // print vector
-    std::cout<<"[";
+    std::cout << "[";
     std::string messy{""};
-    for(auto elements: Vector){
-            messy=messy+std::to_string(elements)+",";
+    for (auto elements : Vector)
+    {
+        messy = messy + std::to_string(elements) + ",";
     }
     messy.pop_back();
-    std::cout<<messy;
-    std::cout<<"]";
-    std::cout<<std::endl;
+    std::cout << messy;
+    std::cout << "]";
+    std::cout << std::endl;
 }
 
-
 void write_to_csv(const std::vector<std::vector<double>> &generated_numbers,
-                  const std::string& filename)
+                  const std::string &filename)
 {
 
     /*
     Create csv file from vector of vectors;
     param:
-        inputs: 
+        inputs:
             generated_numbers: vector of vectors containing all data inputs (could've been generated from generated numbers for example)
             filename: filepath of csv file to be filled in with from generated_numbers
 
@@ -97,13 +88,12 @@ void write_to_csv(const std::vector<std::vector<double>> &generated_numbers,
     csv_file.close();
 }
 
-
-std::vector<std::vector<double>> read_from_csv(const std::string& filename)
+std::vector<std::vector<double>> read_from_csv(const std::string &filename)
 {
     /*
     Create vector of vectors from csv file (the opposite of write_to_csv);
     param:
-        inputs: 
+        inputs:
             filename: filepath of csv to be read from
         returns:
             vector of vectors based on the csv file
@@ -116,7 +106,7 @@ std::vector<std::vector<double>> read_from_csv(const std::string& filename)
     std::vector<std::vector<double>> value_vectors;
     std::vector<double> point;
     double single_value;
-    
+
     if (ifs.is_open())
     {
         std::cout << "opening the file: " << filename << std::endl;
@@ -137,49 +127,85 @@ std::vector<std::vector<double>> read_from_csv(const std::string& filename)
         }
         ifs.close();
         clock_t endTime = clock();
-        std::cout << "Time cost in read_from_csv: "  << double(endTime - startTime) / CLOCKS_PER_SEC << "s" << std::endl;
+        std::cout << "Time cost in read_from_csv: " << double(endTime - startTime) / CLOCKS_PER_SEC << "s" << std::endl;
     }
 
-    else{
+    else
+    {
         std::cout << "Cannot open the file" << std::endl;
     }
     return value_vectors;
 }
 
+// Helper functions for the Nearest Neighbour search
+// (https://en.wikipedia.org/wiki/K-d_tree#Nearest_neighbour_search)
 
-void test_tree_construction()
+double distance(std::vector<double> A, std::vector<double> B)
 {
-    //Generate a tree based on preconceived data and print it (for testing);
-    
+    /*
+    Find the distance between two vector A and vector B;
+    param:
+        inputs:
+            A,B: double vector
+        returns:
+            L2 distance between A and B
 
-    KdTree kdtree;
-    Node *root = nullptr;
-    auto value_vectors = std::vector<std::vector<double>> {{7,2}, {5,4}, {9,6}, {2,3}, {4,7}, {8,1}};
-    for (auto &elem : value_vectors)
-        {
-            root = kdtree.insert(elem, root, 0);
-        }
-    kdtree.print_tree("",root,false);
-
-    kdtree.free_memory(root);
+    */
+    double dist = 0;
+    for (unsigned i = 0; i < A.size(); i++)
+    {
+        dist += pow((A[i] - B[i]), 2);
+    }
+    return sqrt(dist);
 }
 
-
-void test_find_min()
+double max(double a, double b, double c)
 {
-    
-    //test for finding the minimum of a tree with preconcieved data 
-    
-    KdTree kdtree;
-    Node *root = nullptr;
-    auto value_vectors = std::vector<std::vector<double>> {{7,2}, {5,4}, {9,6}, {2,3}, {4,7}, {8,1}};
-    for (auto &elem : value_vectors)
+    /*
+    Find the maximum between three doubles
+    param:
+        inputs:
+            a,b,c: doubles
+        returns:
+            max(a,b,c)
+    */
+    if (a > b)
+    {
+        if (a > c)
         {
-            root = kdtree.insert(elem, root, 0);
+            return a;
         }
-    if (root != NULL) {std::cout << "not empty root" << std::endl;}
-    std::cout << kdtree.find_min(root, 0, 0) << std::endl;
-    std::cout << kdtree.find_min(root, 1, 0) << std::endl;
+        else
+        {
+            return c;
+        }
+    }
+    else
+    {
+        if (b > c)
+        {
+            return b;
+        }
+        else
+        {
+            return c;
+        }
+    }
+}
 
-    kdtree.free_memory(root);
+double distance(std::vector<double> Q, Rect *BB)
+{
+    /*
+    Find the distance between vector Q and rectangle BB, if vector Q is in rectangle BB the distance is 0
+    param:
+        inputs:
+            Q: vector of doubles
+            BB: Rectangle struct with 4 vertices, defined and initialized in rect.h
+        returns:
+            L2 distance between Q and BB given that Q is outside of Rect BB
+
+    */
+    auto dx = max(Q[0] - BB->Xmin, 0.0, Q[0] - BB->Xmax);
+    auto dy = max(Q[1] - BB->Ymin, 0.0, Q[1] - BB->Ymax);
+    return sqrt(dx * dx + dy * dy); // ONLY DONE FOR K=2 :(((
 }

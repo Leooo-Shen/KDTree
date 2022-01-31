@@ -4,12 +4,10 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include <typeinfo>
 #include <ctime>
+#include <memory>
 
-#include "my_kd_tree.h"
-#include "utils.h"
-#include "searchNN.h"
+#include "../include/my_kd_tree.h"
 
 // Create a k-dimention Node.
 // In case of k = 2, there will be 2-d data in the Node (e.g (x, y) )
@@ -20,7 +18,6 @@ int main()
 
     std::string filepath = "../data/generated_values.csv";
     KdTree kdtree;
-    Node* root = nullptr;
     std::vector<std::vector<double>> value_vectors;
 
     // generate toy data
@@ -32,31 +29,23 @@ int main()
     // read data as vector of vectors from csv file
     value_vectors = read_from_csv(filepath);
 
-    // construct the tree
-    for (auto &elem : value_vectors)
-    {
-        root = kdtree.insert(elem, root, 0);
-    }
-    // std::cout << typeid(root).name() << std::endl;
-    // if (root != NULL) {std::cout << "not empty root" << std::endl;}
+    auto tree_root = kdtree.construct(value_vectors);
 
-    kdtree.print_tree("",root,false);
-    std::cout << "The minimum of dimension 0 is: " << kdtree.find_min(root, 0, 0) << std::endl;
-    std::cout << "The minimum of dimension 1 is: " << kdtree.find_min(root, 1, 0) << std::endl;
+    kdtree.print_tree("", tree_root);
 
+    auto min_values = kdtree.find_min_all(tree_root, 0);
 
-    std::vector<double> Target= {102,46};
-    Rect* newrect=new Rect(0,0,100,100);
-    Node* NN=kdtree.searchNN(Target, root,0, newrect);
-    
-    std::cout<<"final best: ";
+    std::vector<double> Target = {4, 32};
+
+    // std::unique_ptr<Rect> newrect (new Rect(0, 0, 100, 100));
+    Rect *newrect = new Rect(0, 0, 100, 100); 
+    Node *NN = kdtree.searchNN(Target, tree_root, 0, newrect);
+
+    std::cout << "Nearest Neighbor:  ";
     print_vector(NN->point);
-    // kdtree.print_tree("",root,false);
 
-
-    // kdtree.free_memory(root); 
-
+    // delete the tree to free memory
+    kdtree.delete_tree(tree_root);
 
     return 0;
-
 }

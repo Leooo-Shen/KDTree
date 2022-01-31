@@ -1,20 +1,15 @@
-#include <iostream>
-#include <string>
-#include <vector>
+
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include <math.h>
 
-#include "my_kd_tree.h"
-#include "node.h"
-#include "utils.h"
-#include "searchNN.h"
+#include "../include/my_kd_tree.h"
+
 
 extern const int k;
 
 
-Node* KdTree::insert(std::vector<double> &x, Node* tree, unsigned cd)
+Node* KdTree::insert(const std::vector<double> &x, Node* tree, unsigned cd)
 {   
 
     // recursively insert node to construct the kd-tree
@@ -55,6 +50,31 @@ Node* KdTree::insert(std::vector<double> &x, Node* tree, unsigned cd)
     return tree;
 }
 
+
+Node* KdTree::construct(const std::vector<std::vector<double>> &value_vectors)
+{
+    Node* root = nullptr;
+    for (auto &elem : value_vectors)
+    {
+        root = insert(elem, root, 0);
+    }
+    return root;
+}
+
+bool KdTree::exist(const Node* root)
+{
+    if (root != NULL) 
+    {
+        std::cout << "Tree exist!" << std::endl;
+        return true;
+    }
+    else
+    {
+        std::cout << "Tree does not exist!" << std::endl;
+        return false;
+    }
+}
+    
 
 bool KdTree::contain_node(Node *root, std::vector<double> search_point, unsigned depth) const
 {
@@ -104,7 +124,7 @@ void KdTree::print_tree(const std::string& prefix, const Node* node, bool isLeft
 }
 
 
-Node* KdTree::delete_node(std::vector<std::vector<double>> &value_vecs, std::vector<double> point_to_delete)
+Node* KdTree::delete_single_node(std::vector<std::vector<double>> &value_vecs, std::vector<double> point_to_delete)
 {
     // we delete the point from the vector of vectors, then reconstruct the tree
     value_vecs.erase(std::remove(value_vecs.begin(), value_vecs.end(), point_to_delete), value_vecs.end());
@@ -118,7 +138,7 @@ Node* KdTree::delete_node(std::vector<std::vector<double>> &value_vecs, std::vec
 
 
 // given the constructed tree, find the min node in corresponding dimension
-double KdTree::find_min(Node* root, int desired_dim, unsigned depth) const
+double KdTree::find_min(Node* root, unsigned desired_dim, unsigned depth) const
 {
 
     clock_t startTime = clock();
@@ -129,7 +149,6 @@ double KdTree::find_min(Node* root, int desired_dim, unsigned depth) const
         return -1;
     }
         
-  
     // computer current dimension
     unsigned cd = depth % k;
   
@@ -161,18 +180,32 @@ double KdTree::find_min(Node* root, int desired_dim, unsigned depth) const
 
 }
 
-void KdTree::free_memory(Node* current_node)
+
+std::vector<double> KdTree::find_min_all(Node* root, unsigned desired_dim, unsigned depth) const
 {
-    if (current_node == nullptr) return;
-    free_memory(current_node->left);
-    free_memory(current_node->right);
-    delete current_node;
+
+    auto point_dim = root->point.size();
+    std::vector<double> min_values;
+
+    for (unsigned desired_dim = 0; desired_dim < point_dim; desired_dim++)
+    {
+        auto curren_min = find_min(root, desired_dim);
+        min_values.push_back(curren_min);
+
+        std::cout << "Min of dimension " << desired_dim << ": " << 
+        curren_min << std::endl;
+    }
+    return min_values;
 }
 
-// KdTree::~KdTree()
-// {
-//     free_memory(root);
-// }
+
+void KdTree::delete_tree(Node* current_node)
+{
+    if (current_node == nullptr) return;
+    delete_tree(current_node->left);
+    delete_tree(current_node->right);
+    delete current_node;
+}
 
 
 double best_dist=-1;
@@ -186,7 +219,7 @@ Node* KdTree::searchNN(std::vector<double> Q, Node* Root, int cd,Rect* BB)
             Q: Query point of which the nearest neighbor has to be found 
             Root: Tree that contains all nodes of which one will be the nearest neighbour to Q
             cd: hyperparamater used to store the alternating dimension checks
-            BB: rectangle struct defined in searchNN.h; is defined as the bounding box of each node. more info [here](https://gopalcdas.com/2017/05/24/construction-of-k-d-tree-and-using-it-for-nearest-neighbour-search/)
+            BB: rectangle struct defined in rect.h; is defined as the bounding box of each node. more info [here](https://gopalcdas.com/2017/05/24/construction-of-k-d-tree-and-using-it-for-nearest-neighbour-search/)
         returns:
             Nearest neighbour pointer of Q within kdtree Root
 
@@ -213,8 +246,6 @@ Node* KdTree::searchNN(std::vector<double> Q, Node* Root, int cd,Rect* BB)
             //our initial best estimate is the direct parent of the leaf node Q
         }
         best_dist= distance(Q, best->point);
-        std::cout<<"intial best: ";
-        print_vector(best->point);
     }
 
     /*
@@ -239,8 +270,7 @@ Node* KdTree::searchNN(std::vector<double> Q, Node* Root, int cd,Rect* BB)
     else{
         searchNN(Q,Root->right,(cd+1)%2, BB->trimRight(cd,Root->point));
         searchNN(Q,Root->left,(cd+1)%2, BB->trimLeft(cd,Root->point));
-
     }
-
+    
     return best;
 }

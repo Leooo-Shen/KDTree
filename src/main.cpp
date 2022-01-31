@@ -13,7 +13,7 @@
 
 int main()
 {
-    std::string filepath = "../data/test_numbers.csv";
+    std::string filepath = "../data/generated_values.csv";
     KdTree kdtree;
     Node* root = nullptr;
     std::vector<std::vector<double>> value_vectors;

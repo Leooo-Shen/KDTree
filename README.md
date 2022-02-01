@@ -12,7 +12,9 @@ kd-tree
 |   main.cpp
 |───build
 |───data
-|      generated_values.csv
+|      generated_values_small.csv
+|      generated_values_middle.csv
+|      generated_values_large.csv
 |───include  
 |      my_kd_tree.h
 |      node.h
@@ -25,12 +27,20 @@ kd-tree
 |      utils.cpp
 |      CMakeLists.txt
 |───test
-|      test.cpp
-|      time_cost.cpp
+|      test_function.cpp
+|      test_performance.cpp
 ```
 
 ## Descriptions
-To use the 
+To compile to code, first go to the build folder: `cd build`
+
+Then use cmake to compile: `cmake ../src/` then `make`
+
+This will generate 3 executable files: "main", "test_function", "test_performance".
+
+* main: it includes the main functionality of our code with user interface.
+* test_function: it tests the code functions
+* test_performance: it records run time for performance analysis
 
 
 ## Sprint Targets 

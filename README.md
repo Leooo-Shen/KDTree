@@ -36,7 +36,7 @@ To compile to code, first go to the build folder: `cd build`
 
 Then use cmake to compile: `cmake ../src/` then `make`
 
-This will generate 3 executable files: "main", "test_function", "test_performance".
+This will generate 3 executable files in the build folder: "main", "test_function", "test_performance".
 
 * main: it includes the main functionality of our code with user interface.
 * test_function: it tests the code functions

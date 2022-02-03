@@ -92,7 +92,7 @@ int main()
     {
     case 0:
         // find minimum value of all dimensions
-        min_values = kdtree.find_min_all(tree_root, 0);
+        min_values = kdtree.find_min_all(tree_root);
         break;
 
     case 1:

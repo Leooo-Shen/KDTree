@@ -111,17 +111,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named time_cost
+# Target rules for targets named test_function
 
 # Build rule for target.
-time_cost: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 time_cost
-.PHONY : time_cost
+test_function: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_function
+.PHONY : test_function
 
 # fast build rule for target.
-time_cost/fast:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/build
-.PHONY : time_cost/fast
+test_function/fast:
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/build
+.PHONY : test_function/fast
+
+#=============================================================================
+# Target rules for targets named test_performance
+
+# Build rule for target.
+test_performance: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_performance
+.PHONY : test_performance
+
+# fast build rule for target.
+test_performance/fast:
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/build
+.PHONY : test_performance/fast
 
 #=============================================================================
 # Target rules for targets named main
@@ -136,32 +149,59 @@ main/fast:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
-home/leo/Desktop/ap_kdtree/test/time_cost.o: home/leo/Desktop/ap_kdtree/test/time_cost.cpp.o
+home/leo/Desktop/ap_kdtree/test/test_function.o: home/leo/Desktop/ap_kdtree/test/test_function.cpp.o
 
-.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.o
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_function.o
 
 # target to build an object file
-home/leo/Desktop/ap_kdtree/test/time_cost.cpp.o:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/home/leo/Desktop/ap_kdtree/test/time_cost.cpp.o
-.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.cpp.o
+home/leo/Desktop/ap_kdtree/test/test_function.cpp.o:
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/home/leo/Desktop/ap_kdtree/test/test_function.cpp.o
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_function.cpp.o
 
-home/leo/Desktop/ap_kdtree/test/time_cost.i: home/leo/Desktop/ap_kdtree/test/time_cost.cpp.i
+home/leo/Desktop/ap_kdtree/test/test_function.i: home/leo/Desktop/ap_kdtree/test/test_function.cpp.i
 
-.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.i
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_function.i
 
 # target to preprocess a source file
-home/leo/Desktop/ap_kdtree/test/time_cost.cpp.i:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/home/leo/Desktop/ap_kdtree/test/time_cost.cpp.i
-.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.cpp.i
+home/leo/Desktop/ap_kdtree/test/test_function.cpp.i:
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/home/leo/Desktop/ap_kdtree/test/test_function.cpp.i
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_function.cpp.i
 
-home/leo/Desktop/ap_kdtree/test/time_cost.s: home/leo/Desktop/ap_kdtree/test/time_cost.cpp.s
+home/leo/Desktop/ap_kdtree/test/test_function.s: home/leo/Desktop/ap_kdtree/test/test_function.cpp.s
 
-.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.s
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_function.s
 
 # target to generate assembly for a file
-home/leo/Desktop/ap_kdtree/test/time_cost.cpp.s:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/home/leo/Desktop/ap_kdtree/test/time_cost.cpp.s
-.PHONY : home/leo/Desktop/ap_kdtree/test/time_cost.cpp.s
+home/leo/Desktop/ap_kdtree/test/test_function.cpp.s:
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/home/leo/Desktop/ap_kdtree/test/test_function.cpp.s
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_function.cpp.s
+
+home/leo/Desktop/ap_kdtree/test/test_performance.o: home/leo/Desktop/ap_kdtree/test/test_performance.cpp.o
+
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_performance.o
+
+# target to build an object file
+home/leo/Desktop/ap_kdtree/test/test_performance.cpp.o:
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/home/leo/Desktop/ap_kdtree/test/test_performance.cpp.o
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_performance.cpp.o
+
+home/leo/Desktop/ap_kdtree/test/test_performance.i: home/leo/Desktop/ap_kdtree/test/test_performance.cpp.i
+
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_performance.i
+
+# target to preprocess a source file
+home/leo/Desktop/ap_kdtree/test/test_performance.cpp.i:
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/home/leo/Desktop/ap_kdtree/test/test_performance.cpp.i
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_performance.cpp.i
+
+home/leo/Desktop/ap_kdtree/test/test_performance.s: home/leo/Desktop/ap_kdtree/test/test_performance.cpp.s
+
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_performance.s
+
+# target to generate assembly for a file
+home/leo/Desktop/ap_kdtree/test/test_performance.cpp.s:
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/home/leo/Desktop/ap_kdtree/test/test_performance.cpp.s
+.PHONY : home/leo/Desktop/ap_kdtree/test/test_performance.cpp.s
 
 main.o: main.cpp.o
 
@@ -196,7 +236,8 @@ my_kd_tree.o: my_kd_tree.cpp.o
 
 # target to build an object file
 my_kd_tree.cpp.o:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/my_kd_tree.cpp.o
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/my_kd_tree.cpp.o
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/my_kd_tree.cpp.o
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/my_kd_tree.cpp.o
 .PHONY : my_kd_tree.cpp.o
 
@@ -206,7 +247,8 @@ my_kd_tree.i: my_kd_tree.cpp.i
 
 # target to preprocess a source file
 my_kd_tree.cpp.i:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/my_kd_tree.cpp.i
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/my_kd_tree.cpp.i
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/my_kd_tree.cpp.i
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/my_kd_tree.cpp.i
 .PHONY : my_kd_tree.cpp.i
 
@@ -216,7 +258,8 @@ my_kd_tree.s: my_kd_tree.cpp.s
 
 # target to generate assembly for a file
 my_kd_tree.cpp.s:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/my_kd_tree.cpp.s
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/my_kd_tree.cpp.s
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/my_kd_tree.cpp.s
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/my_kd_tree.cpp.s
 .PHONY : my_kd_tree.cpp.s
 
@@ -226,7 +269,8 @@ utils.o: utils.cpp.o
 
 # target to build an object file
 utils.cpp.o:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/utils.cpp.o
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/utils.cpp.o
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/utils.cpp.o
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/utils.cpp.o
 .PHONY : utils.cpp.o
 
@@ -236,7 +280,8 @@ utils.i: utils.cpp.i
 
 # target to preprocess a source file
 utils.cpp.i:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/utils.cpp.i
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/utils.cpp.i
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/utils.cpp.i
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/utils.cpp.i
 .PHONY : utils.cpp.i
 
@@ -246,7 +291,8 @@ utils.s: utils.cpp.s
 
 # target to generate assembly for a file
 utils.cpp.s:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/utils.cpp.s
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/utils.cpp.s
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/utils.cpp.s
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/utils.cpp.s
 .PHONY : utils.cpp.s
 
@@ -258,11 +304,15 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... time_cost"
+	@echo "... test_function"
+	@echo "... test_performance"
 	@echo "... main"
-	@echo "... home/leo/Desktop/ap_kdtree/test/time_cost.o"
-	@echo "... home/leo/Desktop/ap_kdtree/test/time_cost.i"
-	@echo "... home/leo/Desktop/ap_kdtree/test/time_cost.s"
+	@echo "... home/leo/Desktop/ap_kdtree/test/test_function.o"
+	@echo "... home/leo/Desktop/ap_kdtree/test/test_function.i"
+	@echo "... home/leo/Desktop/ap_kdtree/test/test_function.s"
+	@echo "... home/leo/Desktop/ap_kdtree/test/test_performance.o"
+	@echo "... home/leo/Desktop/ap_kdtree/test/test_performance.i"
+	@echo "... home/leo/Desktop/ap_kdtree/test/test_performance.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

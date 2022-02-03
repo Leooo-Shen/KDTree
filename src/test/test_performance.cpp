@@ -17,22 +17,27 @@ int main()
 {
     clock_t programStart = clock();
 
-    // std::string filepath = "../data/generated_values_large.csv";  // 10 million
-    // std::string filepath = "../data/generated_values_middle.csv";  // 1 million
-    std::string filepath = "../data/generated_values_small.csv";  // 1k
-
+    
     KdTree kdtree;
     std::vector<std::vector<double>> value_vectors;
 
-    // value_vectors = generate_numbers(1000, 2);
-    // write_to_csv(value_vectors, filepath);
+    // std::string filepath = "../data/generated_values_large.csv";  // 10 million  10,000,000
+    // value_vectors = generate_numbers(1e7, 2);
+
+    // std::string filepath = "../data/generated_values_middle.csv";  // 1 million
+    // value_vectors = generate_numbers(1e6, 2);
+
+    std::string filepath = "../data/generated_values_small.csv";  // 1k
+    value_vectors = generate_numbers(1000, 2);
+    
+    write_to_csv(value_vectors, filepath);
 
     value_vectors = read_from_csv(filepath);
 
     auto tree_root = kdtree.construct(value_vectors);
 
     std::cout << std::endl;
-    auto min_values = kdtree.find_min_all(tree_root, 0);
+    auto min_values = kdtree.find_min_all(tree_root);
 
     // set a target to find its nearest neighbor
     std::vector<double> Target = {1, 2};

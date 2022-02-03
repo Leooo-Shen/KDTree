@@ -53,7 +53,8 @@ CMAKE_BINARY_DIR = /home/leo/Desktop/ap_kdtree/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/time_cost.dir/all
+all: CMakeFiles/test_function.dir/all
+all: CMakeFiles/test_performance.dir/all
 all: CMakeFiles/main.dir/all
 
 .PHONY : all
@@ -64,37 +65,65 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/time_cost.dir/clean
+clean: CMakeFiles/test_function.dir/clean
+clean: CMakeFiles/test_performance.dir/clean
 clean: CMakeFiles/main.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/time_cost.dir
+# Target rules for target CMakeFiles/test_function.dir
 
 # All Build rule for target.
-CMakeFiles/time_cost.dir/all:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/depend
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leo/Desktop/ap_kdtree/build/CMakeFiles --progress-num=5,6,7,8 "Built target time_cost"
-.PHONY : CMakeFiles/time_cost.dir/all
+CMakeFiles/test_function.dir/all:
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/depend
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leo/Desktop/ap_kdtree/build/CMakeFiles --progress-num=5,6,7,8 "Built target test_function"
+.PHONY : CMakeFiles/test_function.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/time_cost.dir/rule: cmake_check_build_system
+CMakeFiles/test_function.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/Desktop/ap_kdtree/build/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/time_cost.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test_function.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/Desktop/ap_kdtree/build/CMakeFiles 0
-.PHONY : CMakeFiles/time_cost.dir/rule
+.PHONY : CMakeFiles/test_function.dir/rule
 
 # Convenience name for target.
-time_cost: CMakeFiles/time_cost.dir/rule
+test_function: CMakeFiles/test_function.dir/rule
 
-.PHONY : time_cost
+.PHONY : test_function
 
 # clean rule for target.
-CMakeFiles/time_cost.dir/clean:
-	$(MAKE) -f CMakeFiles/time_cost.dir/build.make CMakeFiles/time_cost.dir/clean
-.PHONY : CMakeFiles/time_cost.dir/clean
+CMakeFiles/test_function.dir/clean:
+	$(MAKE) -f CMakeFiles/test_function.dir/build.make CMakeFiles/test_function.dir/clean
+.PHONY : CMakeFiles/test_function.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_performance.dir
+
+# All Build rule for target.
+CMakeFiles/test_performance.dir/all:
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/depend
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leo/Desktop/ap_kdtree/build/CMakeFiles --progress-num=9,10,11,12 "Built target test_performance"
+.PHONY : CMakeFiles/test_performance.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_performance.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/Desktop/ap_kdtree/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test_performance.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/Desktop/ap_kdtree/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_performance.dir/rule
+
+# Convenience name for target.
+test_performance: CMakeFiles/test_performance.dir/rule
+
+.PHONY : test_performance
+
+# clean rule for target.
+CMakeFiles/test_performance.dir/clean:
+	$(MAKE) -f CMakeFiles/test_performance.dir/build.make CMakeFiles/test_performance.dir/clean
+.PHONY : CMakeFiles/test_performance.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/main.dir

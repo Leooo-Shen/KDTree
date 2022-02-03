@@ -30,10 +30,10 @@ public:
     double find_min(Node* root, unsigned desired_dim, unsigned depth=0) const;
 
     // a wrapper function of find_dim_min that returns the minimum value of all dimensions
-    std::vector<double> find_min_all(Node* root, unsigned desired_dim, unsigned depth=0) const;
+    std::vector<double> find_min_all(Node* root) const;
 
     //finds the nearest neighbour of a given target
-    Node* searchNN(std::vector<double> Q, Node* Root, int cd, std::shared_ptr<Rect> BB) ;
+    Node* searchNN(std::vector<double> Q, Node* Root, int cd, std::shared_ptr<Rect> BB, double best_dist=-1);
 
     // free memories of all subtree rooted at current node
     void delete_tree(Node* current_node);

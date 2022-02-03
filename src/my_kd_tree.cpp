@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <stack>
 
 #include "../include/my_kd_tree.h"
 
@@ -41,14 +42,13 @@ Node *KdTree::insert(const std::vector<double> &x, Node *tree, unsigned cd)
     }
     else if (x[cd] < tree->point[cd])
     {
-        tree->left = insert(x, tree->left, (cd + 1) % k);
-        Node *a;
         tree->parent = tree;
+        tree->left = insert(x, tree->left, (cd + 1) % k);
     }
     else
     {
-        tree->right = insert(x, tree->right, (cd + 1) % k);
         tree->parent = tree;
+        tree->right = insert(x, tree->right, (cd + 1) % k);
     }
     return tree;
 }
@@ -64,6 +64,7 @@ Node *KdTree::construct(const std::vector<std::vector<double>> &value_vectors)
     }
 
     clock_t endTime = clock();
+    std::cout << "constructing successful";
     std::cout << std::endl
               << "[Time cost in construct: " << double(endTime - startTime) / CLOCKS_PER_SEC << "s]" << std::endl;
     return root;
@@ -145,7 +146,7 @@ double KdTree::find_min(Node *root, unsigned desired_dim, unsigned depth) const
     if (root == NULL)
     {
         // std::cout << "Empty tree!" << std::endl;
-        return -1;
+        return 0;
     }
 
     // computer current dimension
@@ -174,7 +175,7 @@ double KdTree::find_min(Node *root, unsigned desired_dim, unsigned depth) const
     }
 }
 
-std::vector<double> KdTree::find_min_all(Node *root, unsigned desired_dim, unsigned depth) const
+std::vector<double> KdTree::find_min_all(Node *root) const
 {
 
     clock_t startTime = clock();
@@ -203,8 +204,7 @@ void KdTree::delete_tree(Node *current_node)
     delete current_node;
 }
 
-
-Node* KdTree::searchNN(std::vector<double> Q, Node *Root, int cd, std::shared_ptr<Rect> BB)
+Node* KdTree::searchNN(std::vector<double> Q, Node *Root, int cd, std::shared_ptr<Rect> BB, double best_dist)
 {
     /*
     Defines nearest neighbour search algorithm in the KDtree: more info [here](https://en.wikipedia.org/wiki/K-d_tree#Nearest_neighbour_search)
@@ -218,10 +218,9 @@ Node* KdTree::searchNN(std::vector<double> Q, Node *Root, int cd, std::shared_pt
             Nearest neighbour pointer of Q within kdtree Root
 
     */
-    Node *best = nullptr;
-    double best_dist = -1;  // a start condition
+    static Node* best;
 
-    if (best_dist == -1)
+    if (best_dist == -1) // a start condition
     {
         // initial best estimate as the parent of inserted query point, Q
         Node *currentNode = insert(Q, Root, 0);
@@ -232,7 +231,6 @@ Node* KdTree::searchNN(std::vector<double> Q, Node *Root, int cd, std::shared_pt
         while (!currentNode->isLeaf())
         {
             // go through the whole Root tree until you find our inserted Q, i.e. currentNode is a leaf
-
             if (Q[cd] < currentNode->point[cd])
             {
                 best = currentNode;
@@ -244,20 +242,22 @@ Node* KdTree::searchNN(std::vector<double> Q, Node *Root, int cd, std::shared_pt
                 best = currentNode;
                 if (!(currentNode->right == nullptr))
                     currentNode = currentNode->right;
-            } // safety}
-            cd = (cd + 1) % 2;
+            } // safety
+            cd = (cd + 1) % k;
             // our initial best estimate is the direct parent of the leaf node Q
         }
         best_dist = distance(Q, best->point);  // rewrite the best_dist
-    }
 
+        std::cout << "init best distance: " << best_dist << std::endl;
+        print_vector(best->point);
+    }
 
     /*
     Now we check neighboring nodes for better estimates, :)
     Recursively go through all parents of our initial best estimate, with the bounding box of each and look for better estimates
     We use auxillary distance functions form the utils.cpp files, including distances between rect and vector
     */
-    if (Root == nullptr || distance(Q, BB) > best_dist)
+    if (distance(Q, BB) > best_dist)
     {
         return nullptr;
     }
@@ -269,14 +269,16 @@ Node* KdTree::searchNN(std::vector<double> Q, Node *Root, int cd, std::shared_pt
     }
     if (Q[cd] < Root->point[cd])
     {
-        searchNN(Q, Root->left, (cd + 1) % 2, BB->trimLeft(cd, Root->point));
-        searchNN(Q, Root->right, (cd + 1) % 2, BB->trimRight(cd, Root->point));
+        searchNN(Q, Root->left, (cd + 1) % 2, BB->trimLeft(cd, Root->point), best_dist);
+        searchNN(Q, Root->right, (cd + 1) % 2, BB->trimRight(cd, Root->point), best_dist);
     }
     else
     {
-        searchNN(Q, Root->right, (cd + 1) % 2, BB->trimRight(cd, Root->point));
-        searchNN(Q, Root->left, (cd + 1) % 2, BB->trimLeft(cd, Root->point));
+        searchNN(Q, Root->right, (cd + 1) % 2, BB->trimRight(cd, Root->point), best_dist);
+        searchNN(Q, Root->left, (cd + 1) % 2, BB->trimLeft(cd, Root->point), best_dist);
     }
+
+    std::cout << "final best distance: "<< dist << std::endl;
 
     return best;
 }

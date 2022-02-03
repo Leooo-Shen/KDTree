@@ -54,14 +54,15 @@ This will generate 3 executable files in the build folder: "main", "test_functio
 
 ### Sprint 2
 
-* Implement 2 search strategies: find the minimum, KNN search
+* Implement 2 search strategies: find the minimum, KNN search (some bug detected in sprint3)
 * Use classes 
-* Add a free_memory function to delete the whole tree 
+* Add a delete_tree functions that recursively delete the constructed tree
 * Add some test functions
 
 
 ### Sprint 3
 
-* Log the calculation time
+* Log the calculation time and memory comsumption
 * Analyze the bottleneck of code performance
 * Add detailed comments to improve the code readability
+* Try to use smart pointers to deal with memory leakage issues (under construction)

@@ -41,7 +41,7 @@ Generated 2-d sample data. Loaded with our code as `std::vector<double>`.
 - Total time: 76.4677s
 
 <center class="half">
-     <img src="./time.JGP" width="400"/>
+     <img src="time.JPG" width="1000"/>
 </center>
 
 ### Memory consumption with large dataset

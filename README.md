@@ -9,7 +9,6 @@ A kd-tree is a special kind of binary tree that can store points from a k-dimens
 ```
 kd-tree
 |   README.md
-|   main.cpp
 |───build
 |───data
 |      generated_values_small.csv

@@ -1,5 +1,0 @@
-/home/leo/Desktop/ap_kdtree/build/CMakeFiles/rebuild_cache.dir
-/home/leo/Desktop/ap_kdtree/build/CMakeFiles/edit_cache.dir
-/home/leo/Desktop/ap_kdtree/build/CMakeFiles/test_function.dir
-/home/leo/Desktop/ap_kdtree/build/CMakeFiles/test_performance.dir
-/home/leo/Desktop/ap_kdtree/build/CMakeFiles/main.dir

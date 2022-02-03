@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/test_performance.dir/home/leo/Desktop/ap_kdtree/test/test_performance.cpp.o CMakeFiles/test_performance.dir/my_kd_tree.cpp.o CMakeFiles/test_performance.dir/utils.cpp.o  -o test_performance 

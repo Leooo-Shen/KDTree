@@ -37,7 +37,7 @@ int main()
 
     case 1:
         filepath = "../data/generated_values_small.csv";
-        value_vectors = generate_numbers(100, k);
+        value_vectors = generate_numbers(1000, k);
         write_to_csv(value_vectors, filepath);
         break;
 

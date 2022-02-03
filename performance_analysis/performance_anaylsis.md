@@ -6,8 +6,8 @@ We record the time and memory consumptions of core functions at `time_cost.cpp`.
 Generated 2-d sample data. Loaded with our code as `std::vector<double>`.
 
 ### Size of dataset
-- small: 1 thousand 
-- middle: 1 million
+- small: 1 thousand (1.8 kB)
+- middle: 1 million (1.8 MB)
 - large: 10 million (177.9 MB)
 
 ## Hardware Info
@@ -16,28 +16,48 @@ Generated 2-d sample data. Loaded with our code as `std::vector<double>`.
 ## Results
 
 ### Time cost with small dataset
-- Time cost in loading data from csv: 0.000878ss
-- Time cost in constructing kd-tree: 0.000878s
-- Time cost in finding minimum: 6e-5s
-- Time cost in finding nearest neighbor: 0.000164s
-- Total time: 4.9e-05s
+- Time cost in loading data from csv: 0.00082s
+- Time cost in constructing kd-tree: 0.000264s
+- Time cost in finding minimum: 0.000032s
+- Time cost in deleting tree: 0.000033s
+- Total time: 0.002223s
+
 ### Time cost with middle dataset
+- Time cost in loading data from csv: 0.135118s
+- Time cost in constructing kd-tree: 0.175945s
+- Time cost in finding minimum: 0.00014s
+- Time cost in deleting tree: 0.00014s
+- Total time: 0.017499s
 
 ### Time cost with large dataset
 - Time cost in loading data from csv: 14.6284s
-- Time cost in constructing kd-tree: 41.7008s
+- Time cost in constructing kd-tree: 39.3877s
 - Time cost in finding minimum: 0.000795s
-- Time cost in finding nearest neighbor: 0.000659s
-- Total time: 
+- Time cost in deleting tree: 2.70185s
+- Total time: 76.4677s
 
-### Memory consumption
+### Memory consumption with large dataset
+We only record the memory consumption with large dataset for clearer view.
 
-## Diagrams
+Use the command `gnome-system-monitor` to open system monitor on Ubuntu.
+
+
+
+
+## Diagrams on time cost
 
 
 ## Analysis
-1. The slowest part of the code is to construct kd-tree from loaded data, which 
+1. The slowest part of the code is to construct kd-tree from loaded data, which takes up about % % % while using the small, middle, large dataset respectively. It is caused by many `new` opeations during construction. We tried to replace them with smart pointers, but this introduces undesired issues in constructing that need more time for further invesitagion.
 
-load data from csv file, then convert to `std::vector<double>`, which takes up to 
+2. Loading data from csv file is the second slowest operation within the code. Futher improvement can be done by usling multi-thread techniques. 
+
+3. Finding minimum is fast once the tree is successfully constructed. This proves the validaty of KD-Tree to fast data searching speed.
+
+4. Finding the nearest neighbor is unfortunately unstable, which throws some segamentation fault sometimes depending on the target. We suspect that this is caused during the reverse search (climbing up to the tree root). However, due to time limits, we remain this question open. The time cost for finding the nearest neighbor is not included in the test_performance function.
 
 
+## Future works
+1. Invesitage into the `searchNN` function, especially in the reverse part for bug-shooting.
+2. Use multi-thread methods for loading data (particularly for large dataset) from hard drives.
+3. Develop another version with smart pointers in construct_tree, and compare its performance with traditional `new` and `delete` methods. As we can see, deleting the tree also needs some time :) But we are not sure which one is better in terms of time costs before any experiments.

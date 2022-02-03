@@ -144,7 +144,7 @@ std::vector<std::vector<double>> read_from_csv(const std::string &filename)
 double distance(std::vector<double> A, std::vector<double> B)
 {
     /*
-    Find the distance between two vector A and vector B;
+    Find the Euclidean distance between two vector A and vector B;
     param:
         inputs:
             A,B: double vector
@@ -152,6 +152,12 @@ double distance(std::vector<double> A, std::vector<double> B)
             L2 distance between A and B
 
     */
+
+   if (A.size() != B.size())
+    {
+        std::cout << "Dimensions don't match！！" ;
+        exit(1);
+    }
     double dist = 0;
     for (unsigned i = 0; i < A.size(); i++)
     {

@@ -42,13 +42,13 @@ Node *KdTree::insert(const std::vector<double> &x, Node *tree, unsigned cd)
     }
     else if (x[cd] < tree->point[cd])
     {
-        tree->parent = tree;
         tree->left = insert(x, tree->left, (cd + 1) % k);
+        tree->parent = tree;
     }
     else
     {
-        tree->parent = tree;
         tree->right = insert(x, tree->right, (cd + 1) % k);
+        tree->parent = tree;
     }
     return tree;
 }

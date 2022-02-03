@@ -1,3 +1,5 @@
+
+
 # Prerequisites
 *.d
 
@@ -34,3 +36,4 @@
 /.vscode/
 /x64/
 /data/
+/build/

@@ -23,7 +23,7 @@ int main()
 
     // choose the testing data size
 
-    std::string filepath = "../data/generated_values_large.csv";  // 10 million  10,000,000
+    // std::string filepath = "../data/generated_values_large.csv";  // 10 million  10,000,000
     // value_vectors = generate_numbers(10000000, 2);
 
     // std::string filepath = "../data/generated_values_middle.csv";  // 1 million
@@ -35,7 +35,7 @@ int main()
     // write_to_csv(value_vectors, filepath);
 
 
-    // std::string filepath = "../data/generated_values_small.csv";
+    std::string filepath = "../data/generated_values_large.csv";
     value_vectors = read_from_csv(filepath);
 
     auto tree_root = kdtree.construct(value_vectors);

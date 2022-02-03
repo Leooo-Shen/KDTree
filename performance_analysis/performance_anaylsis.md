@@ -10,7 +10,8 @@ Generated 2-d sample data. Loaded with our code as `std::vector<double>`.
 - middle: 1 million (1.8 MB)
 - large: 10 million (177.9 MB)
 
-## Hardware Info
+## Hardware & System Info
+![avatar](system.png)
 
 
 ## Results
@@ -41,8 +42,10 @@ We only record the memory consumption with large dataset for clearer view.
 
 Use the command `gnome-system-monitor` to open system monitor on Ubuntu.
 
+![avatar](before.png)![avatar](during.png)
 
 
+Before running the code, 4.2 GB memory was already used. During running, maximum 5.3 GB was used. Thus we know that the code takes 1.1 GB memory. This is mainly caused by loading data into memory and the `new` operations in constructing the tree.
 
 ## Diagrams on time cost
 

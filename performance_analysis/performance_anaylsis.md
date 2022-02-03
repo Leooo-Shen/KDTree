@@ -42,8 +42,14 @@ We only record the memory consumption with large dataset for clearer view.
 
 Use the command `gnome-system-monitor` to open system monitor on Ubuntu.
 
-![avatar](before.png)![avatar](during.png)
 
+<center class="half">
+     <img src="before.png" width="400"/><img src="during.png" width="400"/>
+</center>
+
+| Memory usage before runnig code| Memory usage while runnnig code |
+| ------ | ------ |
+| 4.2 GB | 5.3 GB (max) |
 
 Before running the code, 4.2 GB memory was already used. During running, maximum 5.3 GB was used. Thus we know that the code takes 1.1 GB memory. This is mainly caused by loading data into memory and the `new` operations in constructing the tree.
 

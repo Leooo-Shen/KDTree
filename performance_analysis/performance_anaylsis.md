@@ -31,7 +31,7 @@ Generated 2-d sample data. Loaded with our code as `std::vector<double>`.
 - Time cost in constructing kd-tree: 0.175945s
 - Time cost in finding minimum: 0.00014s
 - Time cost in deleting tree: 0.00014s
-- Total time: 0.017499s
+- Total time: 0.32499s
 
 ### Time cost with large dataset
 - Time cost in loading data from csv: 14.6284s
@@ -40,15 +40,19 @@ Generated 2-d sample data. Loaded with our code as `std::vector<double>`.
 - Time cost in deleting tree: 2.70185s
 - Total time: 76.4677s
 
+<center class="half">
+     <img src="./time.JGP" width="400"/>
+</center>
+
 ### Memory consumption with large dataset
 We only record the memory consumption with large dataset for clearer view.
 
 Use the command `gnome-system-monitor` to open system monitor on Ubuntu.
 
-
 <center class="half">
      <img src="before.png" width="400"/><img src="during.png" width="400"/>
 </center>
+
 
 | Memory usage before runnig code| Memory usage (max) while runnnig code |
 | ------ | ------ |
@@ -60,9 +64,9 @@ Before running the code, 4.2 GB memory was already used. During running, maximum
 
 
 ## Analysis
-1. The slowest part of the code is to construct kd-tree from loaded data, which takes up about % % % while using the small, middle, large dataset respectively. It is caused by many `new` opeations during construction. We tried to replace them with smart pointers, but this introduces undesired issues in constructing that need more time for further invesitagion.
+1. The slowest part of the code is to construct kd-tree from loaded data, which takes up about % % % while using the small, middle, large dataset respectively. It is caused by many `new` operations during construction. We tried to replace them with smart pointers, but this introduces undesired issues in constructing that need more time for further investigation.
 
-2. Loading data from csv file is the second slowest operation within the code. Futher improvement can be done by usling multi-thread techniques. 
+2. Loading data from csv file is the second slowest operation within the code. Further improvement can be done by using multi-thread techniques. 
 
 3. Finding minimum is fast once the tree is successfully constructed. This proves the validaty of KD-Tree to fast data searching speed.
 
@@ -70,6 +74,6 @@ Before running the code, 4.2 GB memory was already used. During running, maximum
 
 
 ## Future works
-1. Invesitage into the `searchNN` function, especially in the reverse part for bug-shooting.
+1. Investigate into the `searchNN` function, especially in the reverse part for bug-shooting.
 2. Use multi-thread methods for loading data (particularly for large dataset) from hard drives.
 3. Develop another version with smart pointers in construct_tree, and compare its performance with traditional `new` and `delete` methods. As we can see, deleting the tree also needs some time :) But we are not sure which one is better in terms of time costs before any experiments.

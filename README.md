@@ -62,6 +62,6 @@ This will generate 3 executable files in the build folder: "main", "test_functio
 ### Sprint 3
 
 * Log the calculation time and memory comsumption
-* Analyze the bottleneck of code performance
+* Analyze the bottleneck of code performance (See `./performance_analysis/performance_analysis.md`)
 * Add detailed comments to improve the code readability
 * Try to use smart pointers to deal with memory leakage issues (under construction)

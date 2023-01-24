@@ -15,6 +15,7 @@ extern const int k{2};
 
 int main()
 {
+<<<<<<< HEAD
     std::cout << "#####################################################" << std::endl;
     std::cout << "##  Welcome to Amr and Chengzhi's KD-Tree project! ##" << std::endl;
     std::cout << "#####################################################" << std::endl;
@@ -25,6 +26,11 @@ int main()
     std::cout << "(case 1) generate random data " << std::endl;
 
     std::string filepath;
+=======
+    std::string filepath = "../data/generated_values.csv";
+    KdTree kdtree;
+    Node* root = nullptr;
+>>>>>>> main
     std::vector<std::vector<double>> value_vectors;
     unsigned input_mode;
     std::cin >> input_mode;
@@ -104,10 +110,21 @@ int main()
             Target.push_back(tmp);
         }
 
+<<<<<<< HEAD
 
         NN = kdtree.searchNN(Target, tree_root, 0, init_rect);
         std::cout << std::endl
                   << "Nearest Neighbor:  ";
+=======
+        kdtree.print_tree("",root,false);
+        std::cout << "The minimum of dimension 0 is: " << kdtree.find_min(root, 0, 0) << std::endl;
+        std::cout << "The minimum of dimension 1 is: " << kdtree.find_min(root, 1, 0) << std::endl;
+        std::vector<double> Target= {4, 12};
+        Rect* newrect=new Rect(0,0,100,100);
+        Node* NN=kdtree.searchNN(Target, root,0, newrect);
+        
+        std::cout<<"final best: "<< distance(NN->point,Target)<<std::endl;
+>>>>>>> main
         print_vector(NN->point);
         break;
 

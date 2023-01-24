@@ -36,4 +36,5 @@
 /.vscode/
 /x64/
 /data/
-/build/
+build/
+build/main/

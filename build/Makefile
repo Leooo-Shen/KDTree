@@ -177,6 +177,60 @@ my_kd_tree.cpp.s:
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/my_kd_tree.cpp.s
 .PHONY : my_kd_tree.cpp.s
 
+searchNN.o: searchNN.cpp.o
+
+.PHONY : searchNN.o
+
+# target to build an object file
+searchNN.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/searchNN.cpp.o
+.PHONY : searchNN.cpp.o
+
+searchNN.i: searchNN.cpp.i
+
+.PHONY : searchNN.i
+
+# target to preprocess a source file
+searchNN.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/searchNN.cpp.i
+.PHONY : searchNN.cpp.i
+
+searchNN.s: searchNN.cpp.s
+
+.PHONY : searchNN.s
+
+# target to generate assembly for a file
+searchNN.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/searchNN.cpp.s
+.PHONY : searchNN.cpp.s
+
+utils.o: utils.cpp.o
+
+.PHONY : utils.o
+
+# target to build an object file
+utils.cpp.o:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/utils.cpp.o
+.PHONY : utils.cpp.o
+
+utils.i: utils.cpp.i
+
+.PHONY : utils.i
+
+# target to preprocess a source file
+utils.cpp.i:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/utils.cpp.i
+.PHONY : utils.cpp.i
+
+utils.s: utils.cpp.s
+
+.PHONY : utils.s
+
+# target to generate assembly for a file
+utils.cpp.s:
+	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/utils.cpp.s
+.PHONY : utils.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +246,12 @@ help:
 	@echo "... my_kd_tree.o"
 	@echo "... my_kd_tree.i"
 	@echo "... my_kd_tree.s"
+	@echo "... searchNN.o"
+	@echo "... searchNN.i"
+	@echo "... searchNN.s"
+	@echo "... utils.o"
+	@echo "... utils.i"
+	@echo "... utils.s"
 .PHONY : help
 
 

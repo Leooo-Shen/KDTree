@@ -3,19 +3,41 @@
 
 #include <vector>
 
-// A node in the tree has 3 main elements: 
-// the data it carries, a pointer to its left node, a pointer to its right node
-
 struct Node
 {
-    std::vector<double> point;
-    Node *left;
-    Node *right;
-    Node(std::vector<double> &Tpoint)
+    Node();
+    std::vector<double> point;  // data
+    Node* left = nullptr;  // pointer to the left child
+    Node* right= nullptr;  // pointer to the right child
+    Node* parent= nullptr; // pointer to current_node's parent_node, nullptr if current_node is the root
+
+    // constructor
+    Node(const std::vector<double> &Tpoint)
     {
         point = Tpoint;
-        left = right = nullptr;
+        parent = left = right = nullptr;
     }
+
+    bool isRoot()
+    {
+        return {(!point.empty() && parent == nullptr)};
+    }
+
+    bool isLeaf()
+    {
+        return { left == nullptr && right == nullptr};
+    }
+
+    bool isLeftChild()
+    {
+        return {parent->left->point == point};
+    }
+
+    bool isRightChild()
+    {
+        return {parent->right->point == point};
+    }
+
 };
 
 

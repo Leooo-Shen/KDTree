@@ -1,4 +1,5 @@
-# Project: Kd-tree
+# Kd-tree with C++
+Advanced Programming course project @ TUM
 
 ## Motivation
 

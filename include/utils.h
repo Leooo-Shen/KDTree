@@ -4,15 +4,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <fstream>
 
 #include "node.h"
+#include "rect.h"
 
-extern const int k;
 
 std::ostream &operator<<(std::ostream &os, std::vector<double> vec);
 
-std::vector<std::vector<double>> generate_numbers(int n);
+std::vector<std::vector<double>> generate_numbers(int n, unsigned k);
 
 void print_vector(const std::vector<double>& Vector);
 
@@ -24,5 +23,12 @@ std::vector<std::vector<double>> read_from_csv (const std::string& filename);
 void test_tree_construction();
 
 void test_find_min();
+
+
+double distance(std::vector<double> A, std::vector<double> B);
+
+double max(double a, double b, double c);
+
+double distance(std::vector<double> Q,std::shared_ptr<Rect> BB);
 
 #endif

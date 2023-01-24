@@ -10,28 +10,39 @@ A kd-tree is a special kind of binary tree that can store points from a k-dimens
 ```
 kd-tree
 |   README.md
-|   main.cpp
 |───build
 |───data
-|      generated_values.csv
+|      generated_values_small.csv
+|      generated_values_middle.csv
+|      generated_values_large.csv
+|───include  
+|      my_kd_tree.h
+|      node.h
+|      rect.h
+|      utils.h
 |───src
 |      main.cpp
-|      node.cpp
 |      my_kd_tree.cpp
-|      my_kd_tree.h
 |      searchNN.cpp
-|      searchNN.h
 |      utils.cpp
-|      utils.h
 |      CMakeLists.txt
 |───test
-|      kd-tree-test.cpp
-|      kd-search-test.cpp
-|      CMakeLists.txt
+|      test_function.cpp
+|      test_performance.cpp
+|───performance_analysis
+|      performance_analysis.md
 ```
 
 ## Descriptions
-To use the 
+To compile to code, first go to the build folder: `cd build`
+
+Then use cmake to compile: `cmake ../src/` then `make`
+
+This will generate 3 executable files in the build folder: "main", "test_function", "test_performance".
+
+* main: it includes the main functionality of our code with user interface.
+* test_function: it tests the code functions
+* test_performance: it records run time for performance analysis
 
 
 ## Sprint Targets 
@@ -43,14 +54,15 @@ To use the
 
 ### Sprint 2
 
-* Implement 2 search strategies: find the minimum, KNN search
+* Implement 2 search strategies: find the minimum, KNN search (some bug detected in sprint3)
 * Use classes 
-* Add a free_memory function to delete the whole tree 
+* Add a delete_tree functions that recursively delete the constructed tree
 * Add some test functions
 
 
 ### Sprint 3
 
-* Log the calculation time
-* Analyze the bottleneck of code performance
+* Log the calculation time and memory comsumption
+* Analyze the bottleneck of code performance (See `./performance_analysis/performance_analysis.md`)
 * Add detailed comments to improve the code readability
+* Try to use smart pointers to deal with memory leakage issues (under construction)
